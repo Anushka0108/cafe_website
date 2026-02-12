@@ -1,0 +1,152 @@
+:root{
+    --brown:#4B2E1E;
+    --coffee:#6F4E37;
+    --latte:#CFAE8E;
+    --cream:#F6EDE6;
+    --light:#FBF6F1;
+}
+
+body{
+    font-family:Segoe UI;
+    background:var(--latte);
+    margin:0;
+    max-width:1100px;
+    margin:auto;
+    padding:30px;
+    color:var(--brown);
+}
+
+header{
+    text-align:center;
+}
+
+.search{
+    margin:15px auto;
+}
+
+.search input{
+    width:320px;
+    padding:12px;
+    border-radius:25px;
+    border:2px solid var(--latte);
+    font-size:15px;
+}
+
+.banner{
+    background:linear-gradient(135deg,#1f6f5c,#2e8b75);
+    color:white;
+    padding:25px;
+    border-radius:20px;
+    margin:30px 0;
+}
+
+h2{
+    margin-top:30px;
+}
+
+.specials{
+    display:flex;
+    gap:25px;
+    overflow-x:auto;
+    padding:20px 10px;
+    scroll-snap-type:x mandatory;
+}
+
+.specials::-webkit-scrollbar{
+    display:none;
+}
+
+.coffee{
+    min-width:200px;
+    background:linear-gradient(145deg,#fff,#f6ede6);
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(0,0,0,0.12);
+    scroll-snap-align:center;
+    transition:0.3s;
+    position:relative;
+}
+
+.coffee::before{
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:20px;
+    opacity:0.15;
+}
+
+.coffee:hover{
+    transform:translateY(-10px) scale(1.03);
+}
+
+.coffee h4{
+    margin-bottom:8px;
+    font-size:18px;
+    color:#4B2E1E;
+}
+
+.coffee p{
+    font-weight:bold;
+    color:#6F4E37;
+    margin-bottom:10px;
+}
+
+.coffee button{
+    background:#4B2E1E;
+    color:white;
+    border:none;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.coffee button:hover{
+    background:#6F4E37;
+    transform:scale(1.15);
+}
+
+
+.coffee button{
+    background:var(--brown);
+    color:white;
+    border:none;
+    border-radius:50%;
+    width:35px;
+    height:35px;
+    font-size:18px;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.item{
+    background:var(--light);
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.1);
+    position:relative;
+}
+
+.item span{
+    font-weight:bold;
+    color:var(--coffee);
+}
+
+.item button{
+    position:absolute;
+    right:15px;
+    bottom:15px;
+    background:var(--brown);
+    color:white;
+    border:none;
+    border-radius:50%;
+    width:35px;
+    height:35px;
+}
