@@ -150,3 +150,133 @@ h2{
     width:35px;
     height:35px;
 }
+/*Auth*/
+:root {
+    --brown: #4B2E1E;
+    --coffee: #6F4E37;
+    --latte: #CFAE8E;
+    --cream: #F6EDE6;
+    --light: #FBF6F1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--latte);
+    font-family: "Segoe UI", sans-serif;
+}
+
+.auth-container {
+    width: 400px;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(75, 46, 30, 0.35);
+}
+
+.auth-header {
+    height: 220px;
+    position: relative;
+}
+
+.auth-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+}
+
+.overlay-text h1 {
+    font-size: 26px;
+}
+
+.auth-tabs {
+    padding: 30px;
+}
+
+.tab-links {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin-bottom: 30px;
+}
+
+.tab-links label {
+    cursor: pointer;
+    font-weight: 600;
+    color: #999;
+    padding-bottom: 6px;
+    transition: 0.3s;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+#signin:checked ~ .tab-links label[for="signin"],
+#signup:checked ~ .tab-links label[for="signup"] {
+    color: var(--brown);
+    border-bottom: 3px solid var(--brown);
+}
+
+.auth-form {
+    display: none;
+}
+
+#signin:checked ~ .form-wrapper #login-form,
+#signup:checked ~ .form-wrapper #register-form {
+    display: block;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    border: 2px solid var(--light);
+    font-size: 15px;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--coffee);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--brown);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-btn:hover {
+    background: var(--coffee);
+    transform: translateY(-2px);
+}
+
+
+
