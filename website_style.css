@@ -280,8 +280,6 @@ input[type="radio"] {
 
 /*map*/
 
-
-/* RESET */
 *{
   margin:0;
   padding:0;
@@ -289,32 +287,31 @@ input[type="radio"] {
   font-family:Segoe UI, sans-serif;
 }
 
-/* PAGE BACKGROUND */
 body{
   background:#f6efe7;
 }
 
-/* MAIN CONTAINER */
+/* MAIN VERTICAL CONTAINER */
 .container{
   max-width:480px;
   margin:30px auto;
   display:flex;
-  flex-direction:column;
+  flex-direction:column; /* 👈 VERTICAL */
   gap:18px;
 }
 
-/* HEADER */
-.header{
+/* TITLE */
+.title{
   background:#4b2e1e;
   color:white;
-  padding:20px;
-  border-radius:18px;
+  padding:18px;
+  border-radius:16px;
   text-align:center;
 }
 
 /* SEARCH */
 .search{
-  padding:14px 18px;
+  padding:14px;
   border-radius:30px;
   border:none;
   outline:none;
@@ -324,31 +321,16 @@ body{
 .cafe-list{
   display:flex;
   flex-direction:column;
-  gap:16px;
+  gap:12px;
 }
 
-/* 🔥 THIS IS THE IMPORTANT PART */
-.cafe-card{
-  background:#4b2e1e !important;   /* FORCE BROWN */
+.cafe{
+  background:#6f4e37;
   color:white;
-  padding:18px;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-}
-
-/* LOGO */
-.logo{
-  width:48px;
-  height:48px;
-  background:#cfae8e;
-  color:#4b2e1e;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  cursor:pointer;
 }
 
 /* MAP */
@@ -367,7 +349,14 @@ body{
 /* BUTTONS */
 .actions{
   display:flex;
-  gap:14px;
+  gap:12px;
+}
+
+.save, .cancel{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:30px;
 }
 
 .save{
@@ -378,9 +367,86 @@ body{
   background:#e6d5c2;
 }
 
-.save,.cancel{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:30px;
+
+
+
+
+
+
+/*pau*/
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
 }
+
+body{
+  background:#f6efe7;
+}
+
+/* MAIN CONTAINER — INCREASED */
+.container{
+  max-width:520px;   /* 👈 increased */
+  margin:40px auto;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* HEADER */
+.header{
+  background:#4b2e1e;
+  color:white;
+  padding:26px 32px;   /* 👈 side padding increased */
+  border-radius:20px;
+  text-align:center;
+}
+
+/* CARD */
+.card{
+  background:#4b2e1e;
+  color:white;
+  padding:24px 30px;   /* 👈 side padding increased */
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+/* PAYMENT OPTIONS */
+.pay-option{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#6f4e37;
+  padding:14px 20px;   /* 👈 side padding increased */
+  border-radius:16px;
+}
+/* BUTTONS – FORCE BACKGROUND */
+.pay-btn{
+  background-color:#cfae8e !important;
+  color:#4b2e1e;
+  padding:16px 0;
+  border:none;
+  border-radius:34px;
+  font-size:17px;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+}
+
+.cancel-btn{
+  background-color:#e6d5c2 !important;
+  color:#4b2e1e;
+  padding:16px 0;
+  border:none;
+  border-radius:34px;
+  font-size:17px;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+}
+
+
+
