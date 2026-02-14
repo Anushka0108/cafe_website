@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Choose your cafe</title>
+<link rel="stylesheet" href="website_style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- TITLE -->
+  <h1 class="title">Choose your cafe</h1>
+
+  <!-- SEARCH -->
+  <input class="search" type="text" placeholder="Search city">
+
+  <!-- CAFE LIST -->
+  <div class="cafe-list">
+    <div class="cafe" onclick="showMap('Cafe Bodega Goa')">Cafe Bodega</div>
+    <div class="cafe" onclick="showMap('Artjuna Cafe Goa')">Artjuna Cafe</div>
+    <div class="cafe" onclick="showMap('Cafe Chocolatti Goa')">Cafe Chocolatti</div>
+    <div class="cafe" onclick="showMap('Babka Goa')">Babka</div>
+  </div>
+
+  <!-- MAP -->
+  <div class="map" id="mapBox">
+    <iframe 
+      src="https://www.google.com/maps?q=Goa&output=embed"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="actions">
+    <button class="save">Save</button>
+    <button class="cancel" onclick="resetMap()">Cancel</button>
+  </div>
+
+</div>
+
+<script>
+const mapBox = document.getElementById("mapBox");
+
+function showMap(place){
+  mapBox.innerHTML = `
+    <iframe 
+      src="https://www.google.com/maps?q=${encodeURIComponent(place)}&output=embed"
+      loading="lazy">
+    </iframe>
+  `;
+}
+
+function resetMap(){
+  mapBox.innerHTML = `
+    <iframe 
+      src="https://www.google.com/maps?q=Goa&output=embed"
+      loading="lazy">
+    </iframe>
+  `;
+}
+</script>
+
+</body>
+</html>
