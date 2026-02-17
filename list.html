@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Choose your cafe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav>
+    <h1>CoffeeHouse</h1>
+    <div class="links">
+      <a href="#">Home</a>
+      <a href="#">Menu</a>
+      <a href="#">Contact</a>
+      <a href="list.html" class="active">Store Locator</a>
+      <a href="Sign_Up.html">Sign In</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <h1 class="title">Choose your cafe</h1>
+    <div class="search">
+      <input type="text" placeholder="Search city...">
+    </div>
+    <div class="cafe-list">
+      <div class="cafe" onclick="showMap('Margao')">Margao</div>
+      <div class="cafe" onclick="showMap('Ponda')">Ponda</div>
+      <div class="cafe" onclick="showMap('Panjim')">Panjim</div>
+      <div class="cafe" onclick="showMap('Vasco')">Vasco</div>
+    </div>
+
+    <div class="map" id="mapBox">
+      <iframe src="https://www.google.com/maps?q=Goa&output=embed" loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="actions">
+      <button class="save">Save</button>
+      <button class="cancel" onclick="resetMap()">Cancel</button>
+    </div>
+
+  </div>
+
+  <script>
+    const mapBox = document.getElementById("mapBox");
+
+    function showMap(place) {
+      mapBox.innerHTML = `
+    <iframe 
+      src="https://www.google.com/maps?q=${encodeURIComponent(place)}&output=embed"
+      loading="lazy">
+    </iframe>
+  `;
+    }
+
+    function resetMap() {
+      mapBox.innerHTML = `
+    <iframe 
+      src="https://www.google.com/maps?q=Goa&output=embed"
+      loading="lazy">
+    </iframe>
+  `;
+    }
+  </script>
+
+</body>
+
+</html>

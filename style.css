@@ -1,0 +1,213 @@
+
+:root {
+    --brown: #4B2E1E;
+    --coffee: #6F4E37;
+    --latte: #CFAE8E;
+    --cream: #F6EDE6;
+    --light: #FBF6F1;
+}
+
+/* RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Segoe UI;
+    background: var(--latte);
+    color: var(--brown);
+}
+
+/* NAVBAR */
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--cream);
+    padding: 20px;
+    position: sticky;
+    top: 0;
+}
+
+nav h1 {
+    font-size: 24px;
+    color: var(--coffee);
+}
+
+nav .links {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--brown);
+    padding: 12px 18px;
+    border-radius: 20px;
+}
+
+nav a.active {
+    color: rgb(215,120,120);
+}
+
+/* SHARED CONTAINER */
+
+.container{
+  max-width:480px;
+  margin:30px auto;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* ========================= */
+/* STORE LIST PAGE */
+/* ========================= */
+
+.title{
+  background:var(--brown);
+  color:white;
+  padding:18px;
+  border-radius:16px;
+  text-align:center;
+}
+
+/* SEARCH */
+
+.search input{
+  width:100%;
+  padding:14px;
+  border-radius:30px;
+  border:none;
+  outline:none;
+}
+
+/* CAFE LIST */
+
+.cafe-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.cafe{
+  background:var(--coffee);
+  color:white;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  cursor:pointer;
+}
+
+/* MAP */
+
+.map{
+  height:260px;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.map iframe{
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* LIST PAGE BUTTONS */
+
+.actions{
+  display:flex;
+  gap:12px;
+}
+
+.save, .cancel{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:30px;
+}
+
+.save{
+  background:var(--latte);
+}
+
+.cancel{
+  background:#e6d5c2;
+}
+
+/* ========================= */
+/* PAYMENT PAGE */
+/* ========================= */
+
+/* HEADER */
+
+.header {
+    text-align: center;
+    background: var(--brown);
+    color: white;
+    padding: 20px;
+    border-radius: 18px;
+}
+
+/* CARDS */
+
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 18px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* ROWS */
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.total {
+    font-weight: bold;
+    color: var(--coffee);
+    font-size: 18px;
+}
+
+/* PAYMENT OPTIONS */
+
+.pay-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* PAYMENT BUTTONS */
+
+.pay-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    background: var(--brown);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.pay-btn:hover {
+    opacity: 0.9;
+}
+
+.cancel-btn {
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    background: #e6d5c2;
+    cursor: pointer;
+}
