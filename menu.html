@@ -10,131 +10,186 @@
 
 <body>
     <nav>
-    <h1>CoffeeHouse</h1>
-    <div class="links">
-        <a href="index.html">Home</a>
-        <a href="menu.html" class="active">Menu</a>
-        <a href="contact.html">Contact</a>
-        <a href="list.html">Store Locator</a>
-        <a href="Sign_Up.html">Sign In</a>
-    </div>
-</nav>
+        <h1>CoffeeHouse</h1>
+        <div class="links">
+            <a href="main_page.html">Home</a>
+            <a href="menu.html" class="active">Menu</a>
+            <a href="list.html">Store Locator</a>
+            <a href="Sign_Up.html">Sign In</a>
+            <a href="cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    viewBox="0 0 24 24">
+                    <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                    <path
+                        d="M21 6H7.05L5.94 2.68A1 1 0 0 0 4.99 2h-3v2h2.28l3.54 10.63A2 2 0 0 0 9.71 16h7.59a2 2 0 0 0 1.87-1.3l2.76-7.35c.11-.31.07-.65-.11-.92A1 1 0 0 0 21 6m-3.69 8H9.72l-2-6h11.84zM10 18a2 2 0 1 0 0 4 2 2 0 1 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 1 0 0-4">
+                    </path>
+                </svg></a>
+        </div>
+    </nav>
     <div class="container">
 
-        <div class="search">
-            <input type="text" placeholder="Search coffee...">
-        </div>
+        <!-- coffee -->
+        <section class="menu-category">
 
-        <h2>Daily Specials</h2>
-
-        <section class="specials">
-
-            <div class="coffee">
-                <h4>Iced Latte</h4>
-                <p>₹250</p>
-                <button>+</button>
+            <div class="category-img">
+                <img src="assets\coffeeimg.png" alt="Coffee">
             </div>
 
-            <div class="coffee">
-                <h4>Frappuccino</h4>
-                <p>₹400</p>
-                <button>+</button>
+            <div class="category-items">
+                <h2>Hot Coffees</h2>
+
+                <div class="item">
+                    <h4>Espresso</h4>
+                    <span>₹150</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Cappuccino</h4>
+                    <span>₹220</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Mocha</h4>
+                    <span>₹260</span>
+                    <button>+</button>
+                </div>
+
             </div>
-
-            <div class="coffee">
-                <h4>Hot Coffee</h4>
-                <p>₹200</p>
-                <button>+</button>
-            </div>
-
-            <div class="coffee">
-                <h4>Americano</h4>
-                <p>₹180</p>
-                <button>+</button>
-            </div>
-
-            <div class="coffee">
-                <h4>Mocha</h4>
-                <p>₹260</p>
-                <button>+</button>
-            </div>
-
-            <div class="coffee">
-                <h4>Espresso</h4>
-                <p>₹150</p>
-                <button>+</button>
-            </div>
-
-            <div class="coffee">
-                <h4>Caramel Latte</h4>
-                <p>₹280</p>
-                <button>+</button>
-            </div>
-
-            <div class="coffee">
-                <h4>Vanilla Cold Brew</h4>
-                <p>₹300</p>
-                <button>+</button>
-            </div>
-
-
         </section>
 
-        <h2>Menu</h2>
+        <!-- cold coffee -->
+        <section class="menu-category reverse">
 
-        <section class="menu">
-
-            <div class="item">
-                <h4>Cold Brew</h4>
-                <p>Strong & smooth</p>
-                <span>₹300</span>
-                <button>+</button>
+            <div class="category-img">
+                <img src="assets\coldcoffee.png" alt="Cold Drinks">
             </div>
 
-            <div class="item">
-                <h4>Cappuccino</h4>
-                <p>Classic foam coffee</p>
-                <span>₹220</span>
-                <button>+</button>
-            </div>
+            <div class="category-items">
+                <h2>Cold Beverages</h2>
 
-            <div class="item">
-                <h4>Flat White</h4>
-                <p>Rich espresso with milk</p>
-                <span>₹240</span>
-                <button>+</button>
-            </div>
+                <div class="item">
+                    <h4>Iced Latte</h4>
+                    <span>₹250</span>
+                    <button>+</button>
+                </div>
 
-            <div class="item">
-                <h4>Hazelnut Latte</h4>
-                <p>Nutty & creamy</p>
-                <span>₹270</span>
-                <button>+</button>
-            </div>
+                <div class="item">
+                    <h4>Cold Brew</h4>
+                    <span>₹300</span>
+                    <button>+</button>
+                </div>
 
-            <div class="item">
-                <h4>Irish Coffee</h4>
-                <p>Coffee with cream</p>
-                <span>₹320</span>
-                <button>+</button>
-            </div>
+                <div class="item">
+                    <h4>Frappuccino</h4>
+                    <span>₹400</span>
+                    <button>+</button>
+                </div>
 
-            <div class="item">
-                <h4>Affogato</h4>
-                <p>Espresso over ice cream</p>
-                <span>₹290</span>
-                <button>+</button>
             </div>
-
-            <div class="item">
-                <h4>Macchiato</h4>
-                <p>Espresso with foam</p>
-                <span>₹210</span>
-                <button>+</button>
-            </div>
-
         </section>
+
+        <!-- bakery -->
+        <section class="menu-category">
+
+            <div class="category-img">
+                <img src="assets/bakery.png" alt="Bakery">
+            </div>
+
+            <div class="category-items">
+                <h2>Bakery Specials</h2>
+
+                <div class="item">
+                    <h4>Butter Croissant</h4>
+                    <span>₹120</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Chocolate Muffin</h4>
+                    <span>₹140</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Blueberry Cheesecake</h4>
+                    <span>₹280</span>
+                    <button>+</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- sandwiches -->
+        <section class="menu-category reverse">
+
+            <div class="category-img">
+                <img src="assets/sandwich1.png" alt="Sandwich">
+            </div>
+
+            <div class="category-items">
+                <h2>Sandwiches</h2>
+
+                <div class="item">
+                    <h4>Grilled Veg Sandwich</h4>
+                    <span>₹180</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Chicken Club Sandwich</h4>
+                    <span>₹250</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Paneer Tikka Sandwich</h4>
+                    <span>₹220</span>
+                    <button>+</button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- pizza -->
+        <section class="menu-category">
+
+            <div class="category-img">
+                <img src="assets/pizza1.png" alt="Pizza">
+            </div>
+
+            <div class="category-items">
+                <h2>Pizzas</h2>
+
+                <div class="item">
+                    <h4>Margherita Pizza</h4>
+                    <span>₹320</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Farmhouse Pizza</h4>
+                    <span>₹380</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Pepperoni Pizza</h4>
+                    <span>₹420</span>
+                    <button>+</button>
+                </div>
+
+                <div class="item">
+                    <h4>Paneer Tikka Pizza</h4>
+                    <span>₹390</span>
+                    <button>+</button>
+                </div>
+
+            </div>
+        </section>
+
     </div>
+
 </body>
 
 </html>
