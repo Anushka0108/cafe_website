@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delivery Options | CupfulCanvas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Delivery Options</h1>
+
+  <!-- DELIVERY METHOD -->
+  <div class="card">
+    <h3>Select Delivery Method</h3>
+
+    <label class="option">
+      <input type="radio" name="delivery">
+      <div>
+        <strong>Pickup from Store</strong>
+        <span>Collect your order from the selected outlet</span>
+      </div>
+    </label>
+
+    <label class="option">
+      <input type="radio" name="delivery">
+      <div>
+        <strong>Home Delivery</strong>
+        <span>Delivered to your doorstep</span>
+      </div>
+    </label>
+  </div>
+
+  <!-- DELIVERY TIME -->
+  <div class="card">
+    <h3>Delivery Time</h3>
+
+    <label class="option">
+      <input type="radio" name="time">
+      <div>
+        <strong>Deliver Now</strong>
+        <span>Order will be delivered immediately</span>
+      </div>
+    </label>
+
+    <label class="option">
+      <input type="radio" name="time">
+      <div>
+        <strong>Schedule for Later</strong>
+        <span>Choose a preferred date and time</span>
+      </div>
+    </label>
+
+    <!-- DATE & TIME -->
+    <div class="schedule">
+      <label>Delivery Date</label>
+      <input type="date">
+
+      <label>Delivery Time</label>
+      <input type="time">
+    </div>
+  </div>
+
+  <!-- CONTINUE -->
+  <a href="payment.html" class="next-btn">Continue to Payment</a>
+
+</div>
+
+</body>
+</html>

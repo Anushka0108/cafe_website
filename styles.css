@@ -1,0 +1,339 @@
+:root{
+  --bg:#F6EFE9;
+  --card:#EFE0D4;
+  --brown:#3C2A21;
+  --coffee:#6F4E37;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:var(--bg);
+  color:var(--brown);
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  padding:30px 20px;
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+}
+
+/* SEARCH BOX */
+.search-box{
+  max-width:600px;
+  margin:0 auto 30px;
+  padding:0 20px;
+}
+
+.search-box input{
+  width:100%;
+  padding:14px 20px;
+  border-radius:30px;
+  border:none;
+  font-size:14px;
+  outline:none;
+  background:white;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* STORE LIST */
+.store-list{
+  max-width:900px;
+  margin:0 auto 50px;
+  padding:0 20px;
+}
+
+.store{
+  background:var(--card);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:20px;
+  transition:0.3s;
+}
+
+.store:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 25px rgba(60,42,33,0.25);
+}
+
+.store h3{
+  font-size:18px;
+}
+
+.store p{
+  font-size:14px;
+}
+
+/* BADGES */
+.badges{
+  margin:8px 0;
+}
+
+.badge{
+  display:inline-block;
+  background:var(--coffee);
+  color:#fff;
+  font-size:11px;
+  padding:5px 12px;
+  border-radius:14px;
+}
+
+/* ACTION BUTTON */
+.actions{
+  margin-top:12px;
+}
+
+.actions a{
+  display:inline-block;
+  padding:8px 16px;
+  border-radius:18px;
+  background:var(--brown);
+  color:#fff;
+  font-size:12px;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.actions a:hover{
+  opacity:0.85;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .header{
+    font-size:24px;
+  }
+}
+
+
+
+/*delivery page*/
+/* CONTAINER */
+.container{
+  max-width:450px;
+  margin:40px auto;
+  padding:20px;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:25px;
+  font-size:26px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.card h3{
+  font-size:16px;
+  margin-bottom:15px;
+}
+
+/* OPTION */
+.option{
+  display:flex;
+  align-items:flex-start;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.option input{
+  margin-right:10px;
+  margin-top:4px;
+}
+
+.option strong{
+  display:block;
+  font-size:14px;
+}
+
+.option span{
+  font-size:12px;
+  color:#555;
+}
+
+/* SCHEDULE */
+.schedule{
+  background:var(--card);
+  padding:15px;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+.schedule label{
+  display:block;
+  font-size:13px;
+  margin-top:10px;
+}
+
+.schedule input{
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+/* BUTTON */
+.next-btn{
+  display:block;
+  width:100%;
+  background:var(--brown);
+  color:#fff;
+  text-align:center;
+  padding:14px;
+  border-radius:25px;
+  text-decoration:none;
+  font-size:15px;
+}
+
+/*Pay page*/
+.container{
+  max-width:420px;
+  margin:40px auto;
+  padding:20px;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.header h1{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+}
+
+.header p{
+  font-size:14px;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.card h3{
+  margin-bottom:15px;
+}
+
+/* ROWS */
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:14px;
+}
+
+.total{
+  font-weight:600;
+  font-size:16px;
+}
+
+.divider{
+  margin:12px 0;
+  border:0;
+  border-top:1px solid #c9b8ac;
+}
+
+/* PAYMENT OPTIONS */
+.pay-option{
+  display:flex;
+  align-items:center;
+  background:#fff;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.pay-option input{
+  margin-right:10px;
+}
+
+/* BUTTONS */
+.pay-btn{
+  display:block;
+  width:100%;
+  text-align:center;
+  background:var(--brown);
+  color:#fff;
+  padding:14px;
+  border-radius:25px;
+  text-decoration:none;
+  font-size:15px;
+  margin-top:15px;
+}
+
+.cancel-btn{
+  display:block;
+  width:100%;
+  text-align:center;
+  background:transparent;
+  color:var(--brown);
+  padding:12px;
+  border-radius:25px;
+  border:2px solid var(--brown);
+  text-decoration:none;
+  margin-top:10px;
+}
+
+/*ORDRS PAGE*/
+/* ===== ORDER SUCCESS PAGE ===== */
+
+.order-page{
+  background:var(--bg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:'Poppins',sans-serif;
+  color:var(--brown);
+}
+
+.box{
+  background:#fff;
+  padding:35px;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:0 15px 30px rgba(0,0,0,0.12);
+  max-width:350px;
+}
+
+.box h1{
+  color:green;
+  margin-bottom:10px;
+}
+
+.box p{
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.box a{
+  display:inline-block;
+  padding:12px 22px;
+  background:var(--coffee);
+  color:#fff;
+  text-decoration:none;
+  border-radius:20px;
+  font-size:14px;
+}
