@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Payment</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Payment</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>Payment</h1>
-    <p>Complete your order</p>
-  </div>
-
-  <!-- BILL DETAILS -->
-  <div class="card">
-    <h3>Order Summary</h3>
-
-    <div class="row">
-      <span>Coffee </span>
-      <span>₹150</span>
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Payment</h1>
+      <p>Complete your order</p>
     </div>
 
-    <div class="row">
-      <span>Tax</span>
-      <span>₹20</span>
+    <!-- BILL DETAILS -->
+    <div class="card">
+      <h3>Order Summary</h3>
+
+      <div class="row">
+        <span id="item-name">Coffee </span>
+        <span id="price">₹150</span>
+      </div>
+
+      <div class="row">
+        <span id="item-name">Tax</span>
+        <span id="price">₹20</span>
+      </div>
+
+      <hr>
+
+      <div class="row total">
+        <span>Total</span>
+        <span>₹170</span>
+      </div>
     </div>
 
-    <hr>
+    <!-- PAYMENT METHODS -->
+    <div class="card">
+      <h3>Select Payment Method</h3>
 
-    <div class="row total">
-      <span>Total</span>
-      <span>₹170</span>
+      <label class="pay-option">
+        <input type="radio" name="pay">
+        <span>💳 Credit / Debit Card</span>
+      </label>
+
+      <label class="pay-option">
+        <input type="radio" name="pay">
+        <span>📱 UPI</span>
+      </label>
+
+      <label class="pay-option">
+        <input type="radio" name="pay">
+        <span>💵 Cash on Delivery</span>
+      </label>
     </div>
+
+    <a href="order.html" class="pay-btn">Pay Now</a>
+
+    <!-- CANCEL -->
+    <button class="cancel-btn">Cancel</button>
+
   </div>
-
-  <!-- PAYMENT METHODS -->
-  <div class="card">
-    <h3>Select Payment Method</h3>
-
-    <label class="pay-option">
-      <input type="radio" name="pay">
-      <span>💳 Credit / Debit Card</span>
-    </label>
-
-    <label class="pay-option">
-      <input type="radio" name="pay">
-      <span>📱 UPI</span>
-    </label>
-
-    <label class="pay-option">
-      <input type="radio" name="pay">
-      <span>💵 Cash on Delivery</span>
-    </label>
-  </div>
-
-  <!-- PAY BUTTON -->
-  <button class="pay-btn">Pay Now</button>
-
-  <!-- CANCEL -->
-  <button class="cancel-btn">Cancel</button>
-
-</div>
 
 </body>
+
 </html>
