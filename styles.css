@@ -186,6 +186,18 @@ h1 {
   color: #5c3d2e;
 }
 
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item-info .quantity {
+  font-size: 13px;
+  color: var(--coffee);
+  font-weight: 500;
+}
+
 
 /*delivery.html*/
 .option {
@@ -445,4 +457,44 @@ hr {
   height: 1px;
   background: #eee;
   margin: 10px 0;
+}
+
+/* Cart-style buttons */
+.checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--brown);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  background: var(--coffee);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.continue-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid white;
+  border-radius: 30px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.continue-btn:hover {
+  background: white;
+  color: var(--brown);
 }

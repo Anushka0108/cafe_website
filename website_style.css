@@ -18,8 +18,6 @@ body {
     color: var(--brown);
 }
 
-/* Navigation */
-
 nav {
     display: flex;
     align-items: center;
@@ -56,8 +54,6 @@ nav a:hover {
 nav a.active {
     color: rgb(215, 120, 120);
 }
-
-/* Main Page */
 
 .video_content {
     position: relative;
@@ -243,8 +239,6 @@ nav a.active {
     font-size: 18px;
 }
 
-/* Menu */
-
 .container {
     max-width: 1100px;
     margin: auto;
@@ -356,20 +350,6 @@ h2 {
     flex: 1;
 }
 
-.item button {
-    background-color: var(--brown);
-    border: 1px solid white;
-    color: white;
-    border-radius: 50%;
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
-}
-
 .category-items h2 {
     text-align: left;
     margin-bottom: 20px;
@@ -429,8 +409,6 @@ h2 {
     color: inherit;
 }
 
-
-/* item */
 .card {
     width: 500px;
     max-width: 90%;
@@ -501,26 +479,6 @@ textarea {
     resize: none;
 }
 
-.btnadd {
-    width: 100%;
-    display: block;
-    padding: 12px;
-    background-color: #6d4c41;
-    color: white !important;
-    border: none;
-    text-align: center;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: 0.3s;
-}
-
-.btnadd:hover {
-    background-color: #4e342e;
-}
-
 footer {
     text-align: center;
     background: var(--brown);
@@ -528,7 +486,6 @@ footer {
     padding: 15px;
 }
 
-/* Cart Page */
 .cart-container {
     max-width: 800px;
     margin: 40px auto;
@@ -691,14 +648,16 @@ footer {
     display: block;
     width: 100%;
     padding: 16px;
-    background: var(--brown);
+    background: var(--cream);
     color: white;
     text-align: center;
     text-decoration: none;
     border-radius: 30px;
+    border: 2px solid var(--brown);
     font-size: 18px;
     font-weight: 600;
     transition: 0.3s;
+    margin-top: 20px;
 }
 
 .checkout-btn:hover {
