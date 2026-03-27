@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Payment</title>
@@ -9,82 +8,117 @@
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
-      <h1>Payment</h1>
-      <p>Complete your order</p>
-    </div>
-
-    <!-- BILL DETAILS -->
-    <div class="card">
-      <h3>Order Summary</h3>
-
-      <div class="row">
-        <div class="item-info">
-          <span id="item-name">Cappuccino</span>
-          <span class="quantity">x1</span>
-        </div>
-        <span id="price">₹220</span>
-      </div>
-
-      <div class="row">
-        <div class="item-info">
-          <span id="item-name">Iced Latte</span>
-          <span class="quantity">x2</span>
-        </div>
-        <span id="price">₹500</span>
-      </div>
-
-      <div class="row">
-        <div class="item-info">
-          <span id="item-name">Grilled Veg Sandwich</span>
-          <span class="quantity">x1</span>
-        </div>
-        <span id="price">₹180</span>
-      </div>
-
-      <div class="row">
-        <span id="item-name">Delivery Fee</span>
-        <span id="price">₹50</span>
-      </div>
-
-      <hr>
-
-      <div class="row total">
-        <span>Total</span>
-        <span>₹950</span>
-      </div>
-    </div>
-
-    <!-- PAYMENT METHODS -->
-    <div class="card">
-      <h3>Select Payment Method</h3>
-
-      <label class="pay-option">
-        <input type="radio" name="pay">
-        <span>💳 Credit / Debit Card</span>
-      </label>
-
-      <label class="pay-option">
-        <input type="radio" name="pay">
-        <span>📱 UPI</span>
-      </label>
-
-      <label class="pay-option">
-        <input type="radio" name="pay">
-        <span>💵 Cash on Delivery</span>
-      </label>
-    </div>
-
-    <a href="order.html" class="checkout-btn">Pay Now</a>
-
-    <!-- CANCEL -->
-    <button class="cancel-btn">Cancel</button>
-
+  <div class="header">
+    <h1>Payment</h1>
+    <p>Complete your order</p>
   </div>
 
-</body>
+  <div class="card">
+    <h3>Order Summary</h3>
+    <div id="summary"></div>
 
+    <hr>
+
+    <div class="row total">
+      <span>Total</span>
+      <span id="total">₹0</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Select Payment Method</h3>
+
+    <label class="pay-option">
+      <input type="radio" name="payment" value="Card">
+      <span>💳 Card</span>
+    </label>
+
+    <label class="pay-option">
+      <input type="radio" name="payment" value="UPI">
+      <span>📱 UPI</span>
+    </label>
+
+    <label class="pay-option">
+      <input type="radio" name="payment" value="Cash on Delivery">
+      <span>💵 COD</span>
+    </label>
+  </div>
+
+  <button class="checkout-btn" onclick="placeOrder()">Pay Now</button>
+
+</div>
+
+<script>
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const summaryDiv = document.getElementById("summary");
+const totalSpan = document.getElementById("total");
+
+let total = 0;
+let html = "";
+
+cart.forEach(item => {
+
+  let price = Number(item.price);
+  let qty = Number(item.quantity);   // ✅ FIXED HERE
+
+  if (!price || !qty) return;
+
+  let itemTotal = price * qty;
+  total += itemTotal;
+
+  html += `
+    <div class="row">
+      <span>${item.name} (x${qty})</span>
+      <span>₹${itemTotal}</span>
+    </div>
+  `;
+});
+
+// delivery fee
+let deliveryFee = cart.length > 0 ? 50 : 0;
+total += deliveryFee;
+
+html += `
+  <div class="row">
+    <span>Delivery Fee</span>
+    <span>₹${deliveryFee}</span>
+  </div>
+`;
+
+summaryDiv.innerHTML = html;
+totalSpan.textContent = "₹" + total;
+
+
+// PLACE ORDER
+function placeOrder() {
+
+  if (cart.length === 0) {
+    alert("❌ Cart is empty!");
+    return;
+  }
+
+  const payment = document.querySelector('input[name="payment"]:checked');
+
+  if (!payment) {
+    alert("⚠️ Select payment method!");
+    return;
+  }
+
+  const orderData = {
+    items: cart,
+    total: total,
+    payment: payment.value
+  };
+
+  localStorage.setItem("orderData", JSON.stringify(orderData));
+  localStorage.removeItem("cart");
+
+  window.location.href = "order.html";
+}
+</script>
+
+</body>
 </html>

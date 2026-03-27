@@ -1,28 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Order Successful</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="order-page">
 
-  <div class="box">
-    <h1>Order Successful ✅</h1>
-    <p>
-      Thank you for your order.<br>
-      Your payment has been received.
-    </p>
+<div class="box">
+  <h1>Order Successful ✅</h1>
+  <p>Thank you! Your payment has been received 🎉</p>
 
-    <a href="main_page.html">Back to Stores</a>
-  </div>
+  <div id="bill"></div>
+
+  <h3>Total Paid: ₹<span id="total"></span></h3>
+  <p>Payment Method: <span id="payment"></span></p>
+
+  <a href="main_page.html">Back to Home</a>
+</div>
+
+<script>
+const order = JSON.parse(localStorage.getItem("orderData"));
+
+const billDiv = document.getElementById("bill");
+const totalSpan = document.getElementById("total");
+const paymentSpan = document.getElementById("payment");
+
+if (!order || !order.items || order.items.length === 0) {
+  billDiv.innerHTML = "<p>No order found ❌</p>";
+  totalSpan.textContent = "0";
+  paymentSpan.textContent = "-";
+} else {
+
+  let html = "<h3>Order Details</h3>";
+
+  order.items.forEach(item => {
+
+    let price = Number(item.price);
+    let qty = Number(item.quantity);   // ✅ FIXED HERE
+
+    let itemTotal = price * qty;
+
+    html += `
+      <div class="row">
+        <span>${item.name} (x${qty})</span>
+        <span>₹${itemTotal}</span>
+      </div>
+    `;
+  });
+
+  billDiv.innerHTML = html;
+  totalSpan.textContent = order.total;
+  paymentSpan.textContent = order.payment;
+
+  localStorage.removeItem("orderData");
+}
+</script>
 
 </body>
-
 </html>
