@@ -27,84 +27,93 @@
     </nav>
 
     <div class="card">
-        <a href="menu.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                viewBox="0 0 24 24">
+
+        <a href="menu.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path
                     d="M14 8h-1V4c0-.39-.23-.75-.59-.91a.98.98 0 0 0-1.07.17l-9 7.99c-.21.19-.34.46-.34.75s.12.56.34.75l9 8c.29.26.72.33 1.07.17.36-.16.59-.52.59-.91v-4h.64c1.83 0 3.54.82 4.69 2.25l1.9 2.37a1 1 0 0 0 .78.38q.165 0 .33-.06c.4-.14.67-.52.67-.94v-4c0-4.41-3.59-8-8-8Zm6 9.15-.12-.15c-1.53-1.91-3.8-3-6.25-3h-2.64v3.77L4.5 12l6.49-5.77V10h3c3.31 0 6 2.69 6 6v1.15Z">
                 </path>
-            </svg></a><br>
+            </svg>
+        </a>
 
-        <img src="assets\cappacino.png" alt="Coffee Image" width="250">
+        <div class="card-container">
 
-        <h2>Cappuccino</h2>
-        <p>Base Price: ₹220</p>
+            <!-- IMAGE -->
+            <div class="image-section">
+                <img src="assets/cappacino.png" alt="Coffee Image" width="250">
+            </div>
 
-        <form>
+            <!-- INFORMATION -->
+            <div class="info-section">
 
-            <h3>Select Size</h3>
+                <h2>Cappuccino</h2>
+                <p>Base Price: ₹220</p>
 
-            <input type="radio" id="small" name="size" checked>
-            <label for="small">Small (+₹0)</label><br>
+                <form>
 
-            <input type="radio" id="medium" name="size">
-            <label for="medium">Medium (+₹30)</label><br>
+                    <!-- SIZE -->
+                    <div id="size-section">
+                        <h3>Select Size</h3>
+                        <input type="radio" name="size" checked> Small (+₹0)<br>
+                        <input type="radio" name="size"> Medium (+₹30)<br>
+                        <input type="radio" name="size"> Large (+₹60)
+                    </div>
 
-            <input type="radio" id="large" name="size">
-            <label for="large">Large (+₹60)</label>
+                    <!-- MILK -->
+                    <div id="milk-section">
+                        <h3>Choose Milk</h3>
+                        <input type="radio" name="milk" checked> Dairy<br>
+                        <input type="radio" name="milk"> Almond (+₹20)<br>
+                        <input type="radio" name="milk"> Soy (+₹20)
+                    </div>
 
+                    <!-- SUGAR -->
+                    <div id="sugar-section">
+                        <h3>Sugar Level</h3>
+                        <input type="radio" name="sugar"> No Sugar<br>
+                        <input type="radio" name="sugar"> Less Sugar<br>
+                        <input type="radio" name="sugar" checked> Normal
+                    </div>
 
-            <h3>Choose Milk</h3>
+                    <!-- EXTRAS -->
+                    <div id="extras-section">
+                        <h3>Add Extras</h3>
+                        <input type="checkbox"> Cheese (+₹30)<br>
+                        <input type="checkbox"> Sauce (+₹25)
+                    </div>
 
-            <input type="radio" id="dairy" name="milk" checked>
-            <label for="dairy">Dairy</label><br>
+                    <!-- PIZZA ONLY -->
+                    <div id="pizza-section">
+                        <h3>Pizza Toppings</h3>
+                        <input type="checkbox"> Extra Cheese<br>
+                        <input type="checkbox"> Olives<br>
+                        <input type="checkbox"> Jalapenos
+                    </div>
 
-            <input type="radio" id="almond" name="milk">
-            <label for="almond">Almond (+₹20)</label><br>
+                    <!-- QUANTITY -->
+                    <div id="quantity-section">
+                        <h3>Quantity</h3>
+                        <input type="number" min="1" value="1">
+                    </div>
 
-            <input type="radio" id="soy" name="milk">
-            <label for="soy">Soy (+₹20)</label>
+                    <!-- INSTRUCTIONS -->
+                    <div id="instruction-section">
+                        <h3>Special Instructions</h3>
+                        <textarea rows="3"></textarea>
+                    </div>
 
+                    <br><br>
+                    <button type="button" class="checkout-btn" onclick="addToCart(this)">Add to Cart</button>
 
-            <h3>Sugar Level</h3>
+                </form>
 
-            <input type="radio" id="no_sugar" name="sugar">
-            <label for="no_sugar">No Sugar</label><br>
+            </div>
 
-            <input type="radio" id="less_sugar" name="sugar">
-            <label for="less_sugar">Less Sugar</label><br>
-
-            <input type="radio" id="normal_sugar" name="sugar" checked>
-            <label for="normal_sugar">Normal</label>
-
-
-            <!-- ADD-ONS -->
-            <h3>Add Extras</h3>
-
-            <input type="checkbox" id="extra_shot">
-            <label for="extra_shot">Extra Espresso Shot (+₹40)</label><br>
-
-            <input type="checkbox" id="whipped_cream">
-            <label for="whipped_cream">Whipped Cream (+₹30)</label><br>
-
-            <input type="checkbox" id="choco_syrup">
-            <label for="choco_syrup">Chocolate Syrup (+₹25)</label>
-
-
-            <h3>Quantity</h3>
-            <input type="number" min="1" value="1">
-
-
-            <h3>Special Instructions</h3>
-            <textarea rows="3" placeholder="Any specific instructions..."></textarea>
-
-
-            <br><br>
-            <a href="cart.html" class="checkout-btn">Add to Cart</a>
-
-        </form>
+        </div>
 
     </div>
 
 </body>
+<script src="script\item.js"></script>
 
 </html>
