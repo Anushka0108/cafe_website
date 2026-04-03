@@ -4,6 +4,24 @@
   <meta charset="UTF-8">
   <title>Order Successful</title>
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .feedback-box {
+      margin-top: 20px;
+      padding: 15px;
+      border-top: 1px solid #ccc;
+    }
+    .feedback-box textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+    }
+    .feedback-box button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body class="order-page">
@@ -17,7 +35,30 @@
   <h3>Total Paid: ₹<span id="total"></span></h3>
   <p>Payment Method: <span id="payment"></span></p>
 
-  <a href="main_page.html">Back to Home</a>
+  <!-- ✅ FEEDBACK FORM -->
+  <div class="feedback-box">
+    <h3>Give Your Feedback</h3>
+
+    <label>Rating:</label><br>
+     <input type="radio" name="rating" value="1"> ⭐<br>
+     <input type="radio" name="rating" value="2">⭐⭐<br>
+     <input type="radio" name="rating" value="3">⭐⭐⭐<br>
+    <input type="radio" name="rating" value="4">⭐⭐⭐⭐<br>
+     <input type="radio" name="rating" value="5">⭐⭐⭐⭐⭐
+
+    <br><br>
+
+    <textarea id="feedbackText" rows="3" placeholder="Write your feedback..."></textarea>
+    <br>
+
+    <!-- ✅ UPDATED BUTTON -->
+    <button id="feedbackBtn" class="checkout-btn" onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+
+  <br>
+
+  <!-- ✅ BACK TO HOME -->
+  <button class="checkout-btn" onclick="goHome()">Back to Home</button>
 </div>
 
 <script>
@@ -36,10 +77,8 @@ if (!order || !order.items || order.items.length === 0) {
   let html = "<h3>Order Details</h3>";
 
   order.items.forEach(item => {
-
     let price = Number(item.price);
-    let qty = Number(item.quantity);   // ✅ FIXED HERE
-
+    let qty = Number(item.quantity);
     let itemTotal = price * qty;
 
     html += `
@@ -55,6 +94,33 @@ if (!order || !order.items || order.items.length === 0) {
   paymentSpan.textContent = order.payment;
 
   localStorage.removeItem("orderData");
+}
+
+
+// ✅ FEEDBACK FUNCTION (UPDATED)
+function submitFeedback(){
+  let rating = document.querySelector('input[name="rating"]:checked');
+  let feedback = document.getElementById("feedbackText").value.trim();
+
+  if(!rating){
+    alert("⚠️ Please select rating!");
+    return;
+  }
+
+  alert("✅ Feedback submitted successfully!");
+
+  let btn = document.getElementById("feedbackBtn");
+  btn.innerText = "Feedback Submitted";
+  btn.disabled = true;
+  btn.style.background = "#6F4E37"; // coffee color
+}
+
+
+// ✅ BACK TO HOME WITH POPUP
+function goHome(){
+  alert("🎉 Order placed successfully! Thank you for ordering.");
+
+  window.location.href = "main_page.html";
 }
 </script>
 
