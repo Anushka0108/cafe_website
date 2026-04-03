@@ -3,62 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <title>Order Successful</title>
-  <link rel="stylesheet" href="styles.css">
 
   <style>
-    .feedback-box {
-      margin-top: 20px;
-      padding: 15px;
-      border-top: 1px solid #ccc;
+    :root {
+      --bg: #F6EFE9;
+      --card: #EFE0D4;
+      --brown: #4B2E1E;
+      --coffee: #6F4E37;
+      --latte: #CFAE8E;
+      --cream: #F6EDE6;
+      --light: #FBF6F1;
     }
-    .feedback-box textarea {
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: var(--brown);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--coffee); /* ✅ removed green */
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    .left, .right {
+      flex: 1;
+      background: var(--light);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(75, 46, 30, 0.15);
+    }
+
+    h3 {
+      color: var(--coffee);
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      background: var(--cream);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    textarea, select {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--latte);
+      background: white;
     }
-    .feedback-box button {
-      margin-top: 10px;
-      padding: 8px 15px;
+
+    .btn {
+      margin-top: 15px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      background: var(--coffee); /* ✅ coffee button */
+      color: white;
+      border-radius: 25px;
       cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--brown);
+      transform: translateY(-2px);
+    }
+
+    .bottom-btn {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .bottom-btn button {
+      width: 220px;
     }
   </style>
 </head>
 
-<body class="order-page">
+<body>
 
-<div class="box">
-  <h1>Order Successful ✅</h1>
-  <p>Thank you! Your payment has been received 🎉</p>
+<h1>Order Successful ✅</h1>
+<p>Thank you! Your payment has been received 🎉</p>
 
-  <div id="bill"></div>
+<div class="container">
 
-  <h3>Total Paid: ₹<span id="total"></span></h3>
-  <p>Payment Method: <span id="payment"></span></p>
+  <!-- ✅ LEFT: BILL -->
+  <div class="left">
+    <h3>Order Details</h3>
 
-  <!-- ✅ FEEDBACK FORM -->
-  <div class="feedback-box">
-    <h3>Give Your Feedback</h3>
+    <div id="bill"></div>
 
-    <label>Rating:</label><br>
-     <input type="radio" name="rating" value="1"> ⭐<br>
-     <input type="radio" name="rating" value="2">⭐⭐<br>
-     <input type="radio" name="rating" value="3">⭐⭐⭐<br>
-    <input type="radio" name="rating" value="4">⭐⭐⭐⭐<br>
-     <input type="radio" name="rating" value="5">⭐⭐⭐⭐⭐
-
-    <br><br>
-
-    <textarea id="feedbackText" rows="3" placeholder="Write your feedback..."></textarea>
-    <br>
-
-    <!-- ✅ UPDATED BUTTON -->
-    <button id="feedbackBtn" class="checkout-btn" onclick="submitFeedback()">Submit Feedback</button>
+    <h4>Total Paid: ₹<span id="total"></span></h4>
+    <p>Payment Method: <span id="payment"></span></p>
   </div>
 
-  <br>
+  <!-- ✅ RIGHT: FEEDBACK -->
+  <div class="right">
+    <h3>Give Your Feedback</h3>
 
-  <!-- ✅ BACK TO HOME -->
-  <button class="checkout-btn" onclick="goHome()">Back to Home</button>
+    <label>Rating:</label>
+    <select id="ratingSelect">
+      <option value="">-- Select Rating --</option>
+      <option value="1">⭐ </option>
+      <option value="2">⭐⭐ </option>
+      <option value="3">⭐⭐⭐ </option>
+      <option value="4">⭐⭐⭐⭐ </option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
+
+    <textarea id="feedbackText" rows="4" placeholder="Write your feedback..."></textarea>
+
+    <button id="feedbackBtn" class="btn" onclick="submitFeedback()">
+      Submit Feedback
+    </button>
+  </div>
+
+</div>
+
+<!-- ✅ BOTTOM BUTTON -->
+<div class="bottom-btn">
+  <button class="btn" onclick="goHome()">Back to Home</button>
 </div>
 
 <script>
@@ -74,7 +156,7 @@ if (!order || !order.items || order.items.length === 0) {
   paymentSpan.textContent = "-";
 } else {
 
-  let html = "<h3>Order Details</h3>";
+  let html = "";
 
   order.items.forEach(item => {
     let price = Number(item.price);
@@ -96,30 +178,26 @@ if (!order || !order.items || order.items.length === 0) {
   localStorage.removeItem("orderData");
 }
 
-
-// ✅ FEEDBACK FUNCTION (UPDATED)
+// ✅ FEEDBACK FUNCTION
 function submitFeedback(){
-  let rating = document.querySelector('input[name="rating"]:checked');
-  let feedback = document.getElementById("feedbackText").value.trim();
+  let rating = document.getElementById("ratingSelect").value;
 
   if(!rating){
     alert("⚠️ Please select rating!");
     return;
   }
 
-  alert("✅ Feedback submitted successfully!");
+  alert("✅ Feedback submitted!\nRating: " + rating + " ⭐");
 
   let btn = document.getElementById("feedbackBtn");
-  btn.innerText = "Feedback Submitted";
+  btn.innerText = "Submitted";
   btn.disabled = true;
-  btn.style.background = "#6F4E37"; // coffee color
+  btn.style.background = "#4B2E1E";
 }
 
-
-// ✅ BACK TO HOME WITH POPUP
+// ✅ BACK TO HOME
 function goHome(){
-  alert("🎉 Order placed successfully! Thank you for ordering.");
-
+  alert("🎉 Thank you for ordering!");
   window.location.href = "main_page.html";
 }
 </script>
