@@ -38,6 +38,7 @@ h1 {
 
 .container h1 {
   color: white;
+  font-family: "Playwrite AT", cursive;
 }
 
 
@@ -45,9 +46,12 @@ h1 {
 /* SEARCH BAR STYLE */
 #searchInput {
   display: block;
-  margin: 20px auto;        /* center horizontally */
-  width: 60%;               /* increase width */
-  max-width: 500px;         /* limit on large screens */
+  margin: 20px auto;
+  /* center horizontally */
+  width: 60%;
+  /* increase width */
+  max-width: 500px;
+  /* limit on large screens */
   padding: 12px 15px;
   font-size: 16px;
   border: 2px solid #ccc;
@@ -58,9 +62,11 @@ h1 {
 
 /* Focus effect */
 #searchInput:focus {
-  border-color: #6f4e37;    /* coffee color */
+  border-color: #6f4e37;
+  /* coffee color */
   box-shadow: 0 0 8px rgba(111, 78, 55, 0.3);
 }
+
 .search input {
   padding: 14px;
 }

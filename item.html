@@ -38,70 +38,53 @@
 
         <div class="card-container">
 
-            <!-- IMAGE -->
             <div class="image-section">
                 <img src="assets/cappacino.png" alt="Coffee Image" width="250">
             </div>
 
-            <!-- INFORMATION -->
             <div class="info-section">
 
                 <h2>Cappuccino</h2>
                 <p>Base Price: ₹220</p>
 
                 <form>
-
-                    <!-- SIZE -->
                     <div id="size-section">
                         <h3>Select Size</h3>
                         <input type="radio" name="size" checked> Small (+₹0)<br>
                         <input type="radio" name="size"> Medium (+₹30)<br>
                         <input type="radio" name="size"> Large (+₹60)
                     </div>
-
-                    <!-- MILK -->
                     <div id="milk-section">
                         <h3>Choose Milk</h3>
                         <input type="radio" name="milk" checked> Dairy<br>
                         <input type="radio" name="milk"> Almond (+₹20)<br>
                         <input type="radio" name="milk"> Soy (+₹20)
                     </div>
-
-                    <!-- SUGAR -->
                     <div id="sugar-section">
                         <h3>Sugar Level</h3>
                         <input type="radio" name="sugar"> No Sugar<br>
                         <input type="radio" name="sugar"> Less Sugar<br>
                         <input type="radio" name="sugar" checked> Normal
                     </div>
-
-                    <!-- EXTRAS -->
                     <div id="extras-section">
                         <h3>Add Extras</h3>
                         <input type="checkbox"> Cheese (+₹30)<br>
                         <input type="checkbox"> Sauce (+₹25)
                     </div>
-
-                    <!-- PIZZA ONLY -->
                     <div id="pizza-section">
                         <h3>Pizza Toppings</h3>
                         <input type="checkbox"> Extra Cheese<br>
                         <input type="checkbox"> Olives<br>
                         <input type="checkbox"> Jalapenos
                     </div>
-
-                    <!-- QUANTITY -->
                     <div id="quantity-section">
                         <h3>Quantity</h3>
                         <input type="number" min="1" value="1">
                     </div>
-
-                    <!-- INSTRUCTIONS -->
                     <div id="instruction-section">
                         <h3>Special Instructions</h3>
                         <textarea rows="3"></textarea>
                     </div>
-
                     <br><br>
                     <button type="button" class="checkout-btn" onclick="addToCart(this)">Add to Cart</button>
 

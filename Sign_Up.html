@@ -10,85 +10,85 @@
 
 <body>
 
-<div class="auth-container">
+    <div class="auth-container">
 
-    <div class="auth-header">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800">
-        <div class="overlay-text">
-            <h1>Cafe Coffee</h1>
+        <div class="auth-header">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800">
+            <div class="overlay-text">
+                <h1>Cafe Coffee</h1>
+            </div>
+        </div>
+
+        <div class="auth-tabs">
+
+            <input type="radio" name="auth" id="signin" checked>
+            <input type="radio" name="auth" id="signup">
+
+            <div class="tab-links">
+                <label for="signin">Sign In</label>
+                <label for="signup">Sign Up</label>
+            </div>
+
+            <div class="form-wrapper">
+
+                <!-- LOGIN -->
+                <form class="auth-form" id="login-form">
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <button class="auth-btn">Welcome Back</button>
+                </form>
+
+                <!-- SIGNUP -->
+                <form class="auth-form" id="register-form">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="text" placeholder="Address">
+                    <input type="tel" placeholder="Phone Number">
+                    <input type="password" placeholder="Create Password" required>
+                    <button class="auth-btn">Join Now</button>
+                </form>
+
+            </div>
         </div>
     </div>
 
-    <div class="auth-tabs">
+    <script>
 
-        <input type="radio" name="auth" id="signin" checked>
-        <input type="radio" name="auth" id="signup">
+        // SIGNUP
+        document.getElementById("register-form").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        <div class="tab-links">
-            <label for="signin">Sign In</label>
-            <label for="signup">Sign Up</label>
-        </div>
+            localStorage.setItem("isLoggedIn", "true");
 
-        <div class="form-wrapper">
+            alert("Signup successful! Please sign in.");
 
-            <!-- LOGIN -->
-            <form class="auth-form" id="login-form">
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button class="auth-btn">Welcome Back</button>
-            </form>
+            document.getElementById("signin").checked = true;
+        });
 
-            <!-- SIGNUP -->
-            <form class="auth-form" id="register-form">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Address">
-                <input type="text" placeholder="Phone Number">
-                <input type="password" placeholder="Create Password" required>
-                <button class="auth-btn">Join Now</button>
-            </form>
+        // LOGIN
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        </div>
-    </div>
-</div>
+            if (localStorage.getItem("isLoggedIn") === "true") {
 
-<!-- ✅ SINGLE SCRIPT HERE -->
-<script>
+                alert("Login successful!");
 
-// SIGNUP
-document.getElementById("register-form").addEventListener("submit", function(e){
-    e.preventDefault();
+                let redirect = localStorage.getItem("redirectAfterLogin");
 
-    localStorage.setItem("isLoggedIn", "true");
+                if (redirect) {
+                    localStorage.removeItem("redirectAfterLogin");
+                    window.location.href = redirect;
+                } else {
+                    window.location.href = "main_page.html";
+                }
 
-    alert("Signup successful! Please sign in.");
+            } else {
+                alert("Please sign up first!");
+            }
+        });
 
-    document.getElementById("signin").checked = true;
-});
-
-// LOGIN
-document.getElementById("login-form").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    if(localStorage.getItem("isLoggedIn") === "true"){
-
-        alert("Login successful!");
-
-        let redirect = localStorage.getItem("redirectAfterLogin");
-
-        if(redirect){
-            localStorage.removeItem("redirectAfterLogin");
-            window.location.href = redirect;
-        } else {
-            window.location.href = "main_page.html";
-        }
-
-    } else {
-        alert("Please sign up first!");
-    }
-});
-
-</script>
+    </script>
 
 </body>
+
 </html>

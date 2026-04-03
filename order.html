@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Order Successful</title>
@@ -8,55 +9,56 @@
 
 <body class="order-page">
 
-<div class="box">
-  <h1>Order Successful ✅</h1>
-  <p>Thank you! Your payment has been received 🎉</p>
+  <div class="box">
+    <h1>Order Successful ✅</h1>
+    <p>Thank you! Your payment has been received 🎉</p>
 
-  <div id="bill"></div>
+    <div id="bill"></div>
 
-  <h3>Total Paid: ₹<span id="total"></span></h3>
-  <p>Payment Method: <span id="payment"></span></p>
+    <h3>Total Paid: ₹<span id="total"></span></h3>
+    <p>Payment Method: <span id="payment"></span></p>
 
-  <a href="main_page.html">Back to Home</a>
-</div>
+    <a href="main_page.html">Back to Home</a>
+  </div>
 
-<script>
-const order = JSON.parse(localStorage.getItem("orderData"));
+  <script>
+    const order = JSON.parse(localStorage.getItem("orderData"));
 
-const billDiv = document.getElementById("bill");
-const totalSpan = document.getElementById("total");
-const paymentSpan = document.getElementById("payment");
+    const billDiv = document.getElementById("bill");
+    const totalSpan = document.getElementById("total");
+    const paymentSpan = document.getElementById("payment");
 
-if (!order || !order.items || order.items.length === 0) {
-  billDiv.innerHTML = "<p>No order found ❌</p>";
-  totalSpan.textContent = "0";
-  paymentSpan.textContent = "-";
-} else {
+    if (!order || !order.items || order.items.length === 0) {
+      billDiv.innerHTML = "<p>No order found ❌</p>";
+      totalSpan.textContent = "0";
+      paymentSpan.textContent = "-";
+    } else {
 
-  let html = "<h3>Order Details</h3>";
+      let html = "<h3>Order Details</h3>";
 
-  order.items.forEach(item => {
+      order.items.forEach(item => {
 
-    let price = Number(item.price);
-    let qty = Number(item.quantity);   // ✅ FIXED HERE
+        let price = Number(item.price);
+        let qty = Number(item.quantity);
 
-    let itemTotal = price * qty;
+        let itemTotal = price * qty;
 
-    html += `
+        html += `
       <div class="row">
         <span>${item.name} (x${qty})</span>
         <span>₹${itemTotal}</span>
       </div>
     `;
-  });
+      });
 
-  billDiv.innerHTML = html;
-  totalSpan.textContent = order.total;
-  paymentSpan.textContent = order.payment;
+      billDiv.innerHTML = html;
+      totalSpan.textContent = order.total;
+      paymentSpan.textContent = order.payment;
 
-  localStorage.removeItem("orderData");
-}
-</script>
+      localStorage.removeItem("orderData");
+    }
+  </script>
 
 </body>
+
 </html>

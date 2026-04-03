@@ -31,7 +31,7 @@
             <div class="item-details">
                 <h4>${item.name}</h4>
                 <p class="item-price">₹${item.orgprice}</p>
-                <small>${item.size || ""} ${item.milk || ""}</small>
+                <small>${item.size || ""} ${item.milk || ""} ${item.sugar || ""} ${item.toppings || ""}  ${item.extras || ""} </small>
             </div>
 
             <div class="item-quantity">
@@ -81,7 +81,10 @@
 
         function updateSummary(total) {
             let subtotal = total;
-            let delivery = cart.length > 0 ? 50 : 0;
+            let delivery=50;
+            if(subtotal>500){
+                delivery=5;
+            }
             let finalTotal = subtotal + delivery;
 
             document.querySelector(".cart-summary").innerHTML = `
