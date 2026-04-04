@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <title>Payment</title>
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Extra inputs for card/UPI */
+    .payment-details { display:none; margin-top:10px; }
+    .payment-details input, .payment-details select { 
+      width:100%; 
+      margin:5px 0; 
+      padding:8px; 
+    }
+  </style>
 </head>
 
 <body>
@@ -15,35 +25,53 @@
     <p>Complete your order</p>
   </div>
 
+  <!-- ORDER SUMMARY -->
   <div class="card">
     <h3>Order Summary</h3>
     <div id="summary"></div>
-
     <hr>
-
     <div class="row total">
       <span>Total</span>
       <span id="total">₹0</span>
     </div>
   </div>
 
+  <!-- PAYMENT METHODS -->
   <div class="card">
     <h3>Select Payment Method</h3>
 
+    <!-- CARD -->
     <label class="pay-option">
-      <input type="radio" name="payment" value="Card">
-      <span>💳 Card</span>
+      <input type="radio" name="payment" value="Card" onclick="showDetails('card')">
+      💳 Card
+    </label>
+    <div id="cardDetails" class="payment-details">
+      <input type="text" id="cardNumber" placeholder="Card Number (16 digits)" maxlength="16">
+      <input type="text" id="expiry" placeholder="MM/YY">
+      <input type="text" id="cvv" placeholder="CVV (3 digits)" maxlength="3">
+    </div>
+
+    <!-- UPI -->
+    <label class="pay-option">
+      <input type="radio" name="payment" value="UPI" onclick="showDetails('upi')">
+      📱 UPI
+    </label>
+    <div id="upiDetails" class="payment-details">
+      <select id="upiApp">
+        <option value="">Select UPI App</option>
+        <option>Google Pay</option>
+        <option>PhonePe</option>
+        <option>Paytm</option>
+      </select>
+      <input type="text" id="upiId" placeholder="Enter UPI ID (example@upi)">
+    </div>
+
+    <!-- COD -->
+    <label class="pay-option">
+      <input type="radio" name="payment" value="COD" onclick="showDetails('cod')">
+      💵 Cash on Delivery
     </label>
 
-    <label class="pay-option">
-      <input type="radio" name="payment" value="UPI">
-      <span>📱 UPI</span>
-    </label>
-
-    <label class="pay-option">
-      <input type="radio" name="payment" value="Cash on Delivery">
-      <span>💵 COD</span>
-    </label>
   </div>
 
   <button class="checkout-btn" onclick="placeOrder()">Pay Now</button>
@@ -51,8 +79,8 @@
 </div>
 
 <script>
+// CART SUMMARY
 const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
 const summaryDiv = document.getElementById("summary");
 const totalSpan = document.getElementById("total");
 
@@ -60,9 +88,8 @@ let total = 0;
 let html = "";
 
 cart.forEach(item => {
-
   let price = Number(item.price);
-  let qty = Number(item.quantity);   // ✅ FIXED HERE
+  let qty = Number(item.quantity);
 
   if (!price || !qty) return;
 
@@ -92,7 +119,22 @@ summaryDiv.innerHTML = html;
 totalSpan.textContent = "₹" + total;
 
 
-// PLACE ORDER
+// SHOW DETAILS
+function showDetails(type) {
+  document.getElementById("cardDetails").style.display = "none";
+  document.getElementById("upiDetails").style.display = "none";
+
+  if (type === "card") {
+    document.getElementById("cardDetails").style.display = "block";
+  }
+
+  if (type === "upi") {
+    document.getElementById("upiDetails").style.display = "block";
+  }
+}
+
+
+// PLACE ORDER WITH VALIDATION
 function placeOrder() {
 
   if (cart.length === 0) {
@@ -107,6 +149,46 @@ function placeOrder() {
     return;
   }
 
+  // CARD VALIDATION
+  if (payment.value === "Card") {
+    let cardNumber = document.getElementById("cardNumber").value.trim();
+    let expiry = document.getElementById("expiry").value.trim();
+    let cvv = document.getElementById("cvv").value.trim();
+
+    if (!/^[0-9]{16}$/.test(cardNumber)) {
+      alert("❌ Card must be 16 digits!");
+      return;
+    }
+
+    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) {
+      alert("❌ Invalid expiry! Use MM/YY");
+      return;
+    }
+
+    if (!/^[0-9]{3}$/.test(cvv)) {
+      alert("❌ CVV must be 3 digits!");
+      return;
+    }
+  }
+
+  // UPI VALIDATION
+  if (payment.value === "UPI") {
+    let app = document.getElementById("upiApp").value;
+    let upiId = document.getElementById("upiId").value.trim();
+    let upiPattern = /^[a-zA-Z0-9.\-_]{2,}@[a-zA-Z]{2,}$/;
+
+    if (!app) {
+      alert("⚠️ Select UPI App!");
+      return;
+    }
+
+    if (!upiPattern.test(upiId)) {
+      alert("❌ Enter valid UPI ID!");
+      return;
+    }
+  }
+
+  // SUCCESS
   const orderData = {
     items: cart,
     total: total,
@@ -115,6 +197,8 @@ function placeOrder() {
 
   localStorage.setItem("orderData", JSON.stringify(orderData));
   localStorage.removeItem("cart");
+
+  alert("✅ Payment Successful!");
 
   window.location.href = "order.html";
 }

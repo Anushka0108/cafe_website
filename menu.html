@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -231,4 +232,277 @@
 
 </body>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeHouse</title>
+    <link rel="stylesheet" href="website_style.css">
+    <script src="script\menu.js"></script>
+</head>
+
+<body>
+    <nav>
+        <h1>CoffeeHouse</h1>
+        <div class="links">
+            <a href="main_page.html">Home</a>
+            <a href="menu.html" class="active">Menu</a>
+            <a href="map.html">Store Locator</a>
+            <a href="Sign_Up.html">Sign In</a>
+            <a href="cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    viewBox="0 0 24 24">
+                    <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                    <path
+                        d="M21 6H7.05L5.94 2.68A1 1 0 0 0 4.99 2h-3v2h2.28l3.54 10.63A2 2 0 0 0 9.71 16h7.59a2 2 0 0 0 1.87-1.3l2.76-7.35c.11-.31.07-.65-.11-.92A1 1 0 0 0 21 6m-3.69 8H9.72l-2-6h11.84zM10 18a2 2 0 1 0 0 4 2 2 0 1 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 1 0 0-4">
+                    </path>
+                </svg></a>
+        </div>
+    </nav>
+    <!-- SEARCH BAR BELOW NAVIGATION -->
+<div class="search-container" style="text-align:center; margin: 15px 0;">
+    <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="Search item..." 
+        onkeyup="searchItem()" 
+        style="padding: 8px 12px; width: 250px; font-size:16px; border-radius:5px; border:1px solid #ccc;">
+</div>
+    <div class="container">
+
+        <!-- coffee -->
+        <section class="menu-category">
+
+            <div class="category-img">
+                <img src="assets\coffeeimg.png" alt="Coffee">
+            </div>
+
+            <div class="category-items">
+                <h2>Hot Coffees</h2>
+
+                <div class="item">
+                    <h4>Espresso</h4>
+                    <span>₹150</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Expresso',150,'assets/expresso.png','coffee')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Cappuccino</h4>
+                    <span>₹220</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Cappuccino',220,'assets/cappacino.png','coffee')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Mocha</h4>
+                    <span>₹260</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Mocha',260,'assets/coffeeimg.png','coffee')">+</button>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- cold coffee -->
+        <section class="menu-category reverse">
+
+            <div class="category-img">
+                <img src="assets\coldcoffee.png" alt="Cold Drinks">
+            </div>
+
+            <div class="category-items">
+                <h2>Cold Beverages</h2>
+
+                <div class="item">
+                    <h4>Iced Latte</h4>
+                    <span>₹250</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Iced Latte',250,'assets/coldcoffee.png','coffee')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Cold Brew</h4>
+                    <span>₹300</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Cold Brew',300,'assets/coldcoffee.png','coffee')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Frappuccino</h4>
+                    <span>₹400</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Frappuccino',400,'assets/frappacino.png','coffee')">+</button>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- bakery -->
+        <section class="menu-category">
+
+            <div class="category-img">
+                <img src="assets/bakery.png" alt="Bakery">
+            </div>
+
+            <div class="category-items">
+                <h2>Bakery Specials</h2>
+
+                <div class="item">
+                    <h4>Butter Croissant</h4>
+                    <span>₹120</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Butter Croissant',120,'assets/bakery.png','bakery')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Chocolate Muffin</h4>
+                    <span>₹140</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Chocolate Muffin',140,'assets/cupcake.png','bakery')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Blueberry Cheesecake</h4>
+                    <span>₹280</span>
+                    <a href="item.html">
+                        <button
+                            onclick="selectItem('Blueberry Cheesecake',280,'assets/cheescake.png','bakery')">+</button>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- sandwiches -->
+        <section class="menu-category reverse">
+
+            <div class="category-img">
+                <img src="assets/sandwich1.png" alt="Sandwich">
+            </div>
+
+            <div class="category-items">
+                <h2>Sandwiches</h2>
+
+                <div class="item">
+                    <h4>Grilled Veg Sandwich</h4>
+                    <span>₹180</span>
+                    <a href="item.html">
+                        <button
+                            onclick="selectItem('Grilled Veg Sandwich',180,'assets/sandwich1.png','sandwich')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Chicken Club Sandwich</h4>
+                    <span>₹250</span>
+                    <a href="item.html">
+                        <button
+                            onclick="selectItem('Chicken Club Sandwich',250,'assets/sandwich1.png','sandwich')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Paneer Tikka Sandwich</h4>
+                    <span>₹220</span>
+                    <a href="item.html">
+                        <button
+                            onclick="selectItem('Paneer Tikka Sandwich',220,'assets/sandwich1.png','sandwich')">+</button>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- pizza -->
+        <section class="menu-category">
+
+            <div class="category-img">
+                <img src="assets/pizza1.png" alt="Pizza">
+            </div>
+
+            <div class="category-items">
+                <h2>Pizzas</h2>
+
+                <div class="item">
+                    <h4>Margherita Pizza</h4>
+                    <span>₹320</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Margherita Pizza',320,'assets/pizza1.png','pizza')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Farmhouse Pizza</h4>
+                    <span>₹380</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Farmhouse Pizza',380,'assets/pizza1.png','pizza')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Pepperoni Pizza</h4>
+                    <span>₹420</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Pepperoni Pizza',420,'assets/pizza1.png','pizza')">+</button>
+                    </a>
+                </div>
+
+                <div class="item">
+                    <h4>Paneer Tikka Pizza</h4>
+                    <span>₹390</span>
+                    <a href="item.html">
+                        <button onclick="selectItem('Paneer Tikka Pizza',390,'assets/pizza1.png','pizza')">+</button>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+<script>
+  
+function searchItem() {
+    let input = document.getElementById("searchInput").value.toLowerCase().trim();
+    let items = document.querySelectorAll(".item");
+    let categories = document.querySelectorAll(".menu-category");
+
+    // Show all if search empty
+    if(input === "") {
+        items.forEach(item => item.style.display = "block");
+        categories.forEach(cat => cat.style.display = "block");
+        return;
+    }
+
+    // Filter items
+    items.forEach(item => {
+        let name = item.querySelector("h4").innerText.toLowerCase();
+        if(name.includes(input)) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+
+    // Hide empty categories
+    categories.forEach(cat => {
+        let visibleItems = cat.querySelectorAll(".item:not([style*='display: none'])");
+        cat.style.display = visibleItems.length ? "block" : "none";
+    });
+}
+</script>
+
+</body>
+
+>>>>>>> 11b54b8edb8d90cde5be8c510db734a7d34d65b4
 </html>

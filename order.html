@@ -4,11 +4,104 @@
 <head>
   <meta charset="UTF-8">
   <title>Order Successful</title>
-  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --bg: #F6EFE9;
+      --card: #EFE0D4;
+      --brown: #4B2E1E;
+      --coffee: #6F4E37;
+      --latte: #CFAE8E;
+      --cream: #F6EDE6;
+      --light: #FBF6F1;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: var(--brown);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--coffee); /* ✅ removed green */
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      max-width: 900px;
+      margin: 30px auto;
+    }
+
+    .left, .right {
+      flex: 1;
+      background: var(--light);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(75, 46, 30, 0.15);
+    }
+
+    h3 {
+      color: var(--coffee);
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      background: var(--cream);
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--latte);
+      background: white;
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      background: var(--coffee); /* ✅ coffee button */
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--brown);
+      transform: translateY(-2px);
+    }
+
+    .bottom-btn {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .bottom-btn button {
+      width: 220px;
+    }
+  </style>
 </head>
 
-<body class="order-page">
+<body>
 
+<<<<<<< HEAD
   <div class="box">
     <h1>Order Successful ✅</h1>
     <p>Thank you! Your payment has been received 🎉</p>
@@ -20,6 +113,50 @@
 
     <a href="main_page.html">Back to Home</a>
   </div>
+=======
+<h1>Order Successful ✅</h1>
+<p>Thank you! Your payment has been received 🎉</p>
+
+<div class="container">
+
+  <!-- ✅ LEFT: BILL -->
+  <div class="left">
+    <h3>Order Details</h3>
+
+    <div id="bill"></div>
+
+    <h4>Total Paid: ₹<span id="total"></span></h4>
+    <p>Payment Method: <span id="payment"></span></p>
+  </div>
+
+  <!-- ✅ RIGHT: FEEDBACK -->
+  <div class="right">
+    <h3>Give Your Feedback</h3>
+
+    <label>Rating:</label>
+    <select id="ratingSelect">
+      <option value="">-- Select Rating --</option>
+      <option value="1">⭐ </option>
+      <option value="2">⭐⭐ </option>
+      <option value="3">⭐⭐⭐ </option>
+      <option value="4">⭐⭐⭐⭐ </option>
+      <option value="5">⭐⭐⭐⭐⭐</option>
+    </select>
+
+    <textarea id="feedbackText" rows="4" placeholder="Write your feedback..."></textarea>
+
+    <button id="feedbackBtn" class="btn" onclick="submitFeedback()">
+      Submit Feedback
+    </button>
+  </div>
+
+</div>
+
+<!-- ✅ BOTTOM BUTTON -->
+<div class="bottom-btn">
+  <button class="btn" onclick="goHome()">Back to Home</button>
+</div>
+>>>>>>> 11b54b8edb8d90cde5be8c510db734a7d34d65b4
 
   <script>
     const order = JSON.parse(localStorage.getItem("orderData"));
@@ -34,6 +171,7 @@
       paymentSpan.textContent = "-";
     } else {
 
+<<<<<<< HEAD
       let html = "<h3>Order Details</h3>";
 
       order.items.forEach(item => {
@@ -42,6 +180,14 @@
         let qty = Number(item.quantity);
 
         let itemTotal = price * qty;
+=======
+  let html = "";
+
+  order.items.forEach(item => {
+    let price = Number(item.price);
+    let qty = Number(item.quantity);
+    let itemTotal = price * qty;
+>>>>>>> 11b54b8edb8d90cde5be8c510db734a7d34d65b4
 
         html += `
       <div class="row">
@@ -55,9 +201,38 @@
       totalSpan.textContent = order.total;
       paymentSpan.textContent = order.payment;
 
+<<<<<<< HEAD
       localStorage.removeItem("orderData");
     }
   </script>
+=======
+  localStorage.removeItem("orderData");
+}
+
+// ✅ FEEDBACK FUNCTION
+function submitFeedback(){
+  let rating = document.getElementById("ratingSelect").value;
+
+  if(!rating){
+    alert("⚠️ Please select rating!");
+    return;
+  }
+
+  alert("✅ Feedback submitted!\nRating: " + rating + " ⭐");
+
+  let btn = document.getElementById("feedbackBtn");
+  btn.innerText = "Submitted";
+  btn.disabled = true;
+  btn.style.background = "#4B2E1E";
+}
+
+// ✅ BACK TO HOME
+function goHome(){
+  alert("🎉 Thank you for ordering!");
+  window.location.href = "main_page.html";
+}
+</script>
+>>>>>>> 11b54b8edb8d90cde5be8c510db734a7d34d65b4
 
 </body>
 
