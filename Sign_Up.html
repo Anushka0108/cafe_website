@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cafe Coffee - Login</title>
     <link rel="stylesheet" href="sign_up.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -15,7 +17,7 @@
         <div class="auth-header">
             <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800">
             <div class="overlay-text">
-                <h1>Cafe Coffee</h1>
+                <h1>CoffeeHouse</h1>
             </div>
         </div>
 
@@ -51,107 +53,72 @@
             </div>
         </div>
     </div>
-
     <script>
 
-        // SIGNUP
         document.getElementById("register-form").addEventListener("submit", function (e) {
             e.preventDefault();
 
-            localStorage.setItem("isLoggedIn", "true");
+            let fullName = document.querySelector("#register-form input[placeholder='Full Name']").value.trim();
+            let email = document.querySelector("#register-form input[placeholder='Email']").value.trim();
+            let address = document.querySelector("#register-form input[placeholder='Address']").value.trim();
+            let phone = document.querySelector("#register-form input[placeholder='Phone Number']").value.trim();
+            let password = document.querySelector("#register-form input[placeholder='Create Password']").value.trim();
+            let namePattern = /^[A-Za-z\s]+$/;
+            if (!namePattern.test(fullName)) {
+                alert("Invalid name!");
+                return;
+            }
+
+            let addressPattern = /^[A-Za-z\s,]+$/;
+            if (address && !addressPattern.test(address)) {
+                alert("Invalid address!");
+                return;
+            }
+
+            let phonePattern = /^[0-9]{10}$/;
+            if (!phonePattern.test(phone)) {
+                alert("Invalid phone number!");
+                return;
+            }
+
+            if (password.length !== 6) {
+                alert("Password must be exactly 6 characters!");
+                return;
+            }
+
+            localStorage.setItem("userName", fullName);
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("userPassword", password);
 
             alert("Signup successful! Please sign in.");
 
             document.getElementById("signin").checked = true;
+            document.getElementById("register-form").reset();
         });
 
-        // LOGIN
+
+        // ================= SIGNIN =================
         document.getElementById("login-form").addEventListener("submit", function (e) {
             e.preventDefault();
 
-            if (localStorage.getItem("isLoggedIn") === "true") {
+            let email = document.querySelector("#login-form input[type='email']").value.trim();
+            let password = document.querySelector("#login-form input[type='password']").value.trim();
 
-                <!-- ✅ SINGLE SCRIPT HERE -->
-                <script>
-// ================= SIGNUP =================
-                    document.getElementById("register-form").addEventListener("submit", function(e){
-                        e.preventDefault();
+            let storedEmail = localStorage.getItem("userEmail");
+            let storedPassword = localStorage.getItem("userPassword");
 
-                    let fullName = document.querySelector("#register-form input[placeholder='Full Name']").value.trim();
-                    let email = document.querySelector("#register-form input[placeholder='Email']").value.trim();
-                    let address = document.querySelector("#register-form input[placeholder='Address']").value.trim();
-                    let phone = document.querySelector("#register-form input[placeholder='Phone Number']").value.trim();
-                    let password = document.querySelector("#register-form input[placeholder='Create Password']").value.trim();
+            if (email === storedEmail && password === storedPassword) {
+                localStorage.setItem("isLoggedIn", "true");
 
-                    // Name validation
-                    let namePattern = /^[A-Za-z\s]+$/;
-                    if(!namePattern.test(fullName)){
-                        alert("Invalid name!");
-                    return;
-    }
-
-                    // Address validation
-                    let addressPattern = /^[A-Za-z\s,]+$/;
-                    if(address && !addressPattern.test(address)){
-                        alert("Invalid address!");
-                    return;
-    }
-
-                    // Phone validation
-                    let phonePattern = /^[0-9]{10}$/;
-                    if(!phonePattern.test(phone)){
-                        alert("Invalid phone number!");
-                    return;
-    }
-
-                    // Password validation
-                    if(password.length !== 6){
-                        alert("Password must be exactly 6 characters!");
-                    return;
-    }
-
-                    // ✅ Store data
-                    localStorage.setItem("userName", fullName);
-                    localStorage.setItem("userEmail", email);
-                    localStorage.setItem("userPassword", password);
-
+                alert("Login successful!");
+                window.location.href = "main_page.html";
             } else {
-                        alert("Please sign up first!");
+                alert("Invalid email or password!");
             }
+
+            document.getElementById("login-form").reset();
         });
 
-                    // switch to signin tab
-                    document.getElementById("signin").checked = true;
-
-                    // clear form
-                    document.getElementById("register-form").reset();
-});
-
-
-                    // ================= SIGNIN =================
-                    document.getElementById("login-form").addEventListener("submit", function(e){
-                        e.preventDefault();
-
-                    let email = document.querySelector("#login-form input[type='email']").value.trim();
-                    let password = document.querySelector("#login-form input[type='password']").value.trim();
-
-                    let storedEmail = localStorage.getItem("userEmail");
-                    let storedPassword = localStorage.getItem("userPassword");
-
-                    if(email === storedEmail && password === storedPassword){
-                        localStorage.setItem("isLoggedIn", "true");
-
-                    alert("Login successful!");
-
-                    // ✅ redirect
-                    window.location.href = "main_page.html";
-    } else {
-                        alert("Invalid email or password!");
-    }
-
-                    // clear form
-                    document.getElementById("login-form").reset();
-});
     </script>
 </body>
 

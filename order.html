@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Order Successful</title>
+  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
 
   <style>
     :root {
@@ -18,7 +19,7 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: var(--bg);
+      background: var(--latte);
       margin: 0;
       padding: 20px;
       color: var(--brown);
@@ -27,7 +28,6 @@
     h1 {
       text-align: center;
       color: var(--coffee);
-      /* ✅ removed green */
     }
 
     p {
@@ -48,10 +48,6 @@
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 8px 20px rgba(75, 46, 30, 0.15);
-    }
-
-    h3 {
-      color: var(--coffee);
     }
 
     .row {
@@ -79,17 +75,9 @@
       width: 100%;
       border: none;
       background: var(--coffee);
-      /* ✅ coffee button */
       color: white;
       border-radius: 25px;
       cursor: pointer;
-      font-size: 15px;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: var(--brown);
-      transform: translateY(-2px);
     }
 
     .bottom-btn {
@@ -110,7 +98,7 @@
 
   <div class="container">
 
-    <!-- ✅ LEFT: BILL -->
+    <!-- LEFT: BILL -->
     <div class="left">
       <h3>Order Details</h3>
 
@@ -120,91 +108,79 @@
       <p>Payment Method: <span id="payment"></span></p>
     </div>
 
-    <!-- ✅ RIGHT: FEEDBACK -->
+    <!-- RIGHT: FORM -->
     <div class="right">
       <h3>Give Your Feedback</h3>
 
-      <label>Rating:</label>
-      <select id="ratingSelect">
-        <option value="">-- Select Rating --</option>
-        <option value="1">⭐ </option>
-        <option value="2">⭐⭐ </option>
-        <option value="3">⭐⭐⭐ </option>
-        <option value="4">⭐⭐⭐⭐ </option>
-        <option value="5">⭐⭐⭐⭐⭐</option>
-      </select>
+      <form id="feedbackForm">
 
-      <textarea id="feedbackText" rows="4" placeholder="Write your feedback..."></textarea>
+        <label>Rating:</label>
+        <select id="ratingSelect" required>
+          <option value="">-- Select Rating --</option>
+          <option value="1">⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
 
-      <button id="feedbackBtn" class="btn" onclick="submitFeedback()">
-        Submit Feedback
-      </button>
+        <textarea id="feedbackText" rows="4" placeholder="Write your feedback..."></textarea>
+
+        <button type="submit" id="feedbackBtn" class="btn">
+          Submit Feedback
+        </button>
+
+      </form>
     </div>
 
   </div>
 
-  <!-- ✅ BOTTOM BUTTON -->
+  <!-- BOTTOM BUTTON -->
   <div class="bottom-btn">
-    <button class="btn" onclick="goHome()">Back to Home</button>
+    <button id="homeBtn" class="btn">Back to Home</button>
   </div>
 
   <script>
-    const order = JSON.parse(localStorage.getItem("orderData"));
-
-    const billDiv = document.getElementById("bill");
-    const totalSpan = document.getElementById("total");
-    const paymentSpan = document.getElementById("payment");
-
-    if (!order || !order.items || order.items.length === 0) {
-      billDiv.innerHTML = "<p>No order found ❌</p>";
-      totalSpan.textContent = "0";
-      paymentSpan.textContent = "-";
-    } else {
-
-      let html = "";
-
-      order.items.forEach(item => {
-        let price = Number(item.price);
-        let qty = Number(item.quantity);
-        let itemTotal = price * qty;
-
-        html += `
-      <div class="row">
-        <span>${item.name} (x${qty})</span>
-        <span>₹${itemTotal}</span>
-      </div>
-    `;
-      });
-
-      billDiv.innerHTML = html;
-      totalSpan.textContent = order.total;
-      paymentSpan.textContent = order.payment;
-
-      localStorage.removeItem("orderData");
-    }
-
-    // ✅ FEEDBACK FUNCTION
-    function submitFeedback() {
-      let rating = document.getElementById("ratingSelect").value;
-
-      if (!rating) {
-        alert("⚠️ Please select rating!");
-        return;
+    $(document).ready(function () {
+      let order = JSON.parse(localStorage.getItem("orderData"));
+      if (!order || !order.items || order.items.length === 0) {
+        $("#bill").html("<p>No order found</p>");
+        $("#total").text("0");
+        $("#payment").text("-");
+      } else {
+        let html = "";
+        $.each(order.items, function (i, item) {
+          let itemTotal = item.price * item.quantity;
+          html += `
+          <div class="row">
+            <span>${item.name} (x${item.quantity})</span>
+            <span>₹${itemTotal}</span>
+          </div>
+          `;
+        });
+        $("#bill").html(html);
+        $("#total").text(order.total);
+        $("#payment").text(order.payment);
+        localStorage.removeItem("orderData");
       }
-
-      alert("✅ Feedback submitted!\nRating: " + rating + " ⭐");
-
-      let btn = document.getElementById("feedbackBtn");
-      btn.innerText = "Submitted";
-      btn.disabled = true;
-      btn.style.background = "#4B2E1E";
-    }
-
-    // ✅ BACK TO HOME
-    function goHome() {
-      alert("🎉 Thank you for ordering!");
-      window.location.href = "main_page.html";
-    }
+      $("#feedbackForm").submit(function (e) {
+        e.preventDefault();
+        let rating = $("#ratingSelect").val();
+        if (!rating) {
+          alert("Please select rating!");
+          return;
+        }
+        alert("Feedback submitted!\nRating: " + rating + " ⭐");
+        $("#feedbackBtn")
+          .text("Submitted")
+          .prop("disabled", true)
+          .css("background", "#4B2E1E");
+      });
+      $("#homeBtn").click(function () {
+        alert("Thank you for ordering!");
+        window.location.href = "main_page.html";
+      });
+    });
   </script>
 
 </body>

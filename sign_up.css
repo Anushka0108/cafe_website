@@ -42,6 +42,7 @@ body {
 
 .overlay-text {
     position: absolute;
+    font-family: 'Playwrite AT', sans-serif;
     bottom: 20px;
     left: 20px;
     color: white;
@@ -73,8 +74,8 @@ input[type="radio"] {
     display: none;
 }
 
-#signin:checked ~ .tab-links label[for="signin"],
-#signup:checked ~ .tab-links label[for="signup"] {
+#signin:checked~.tab-links label[for="signin"],
+#signup:checked~.tab-links label[for="signup"] {
     color: var(--brown);
     border-bottom: 3px solid var(--brown);
 }
@@ -83,8 +84,8 @@ input[type="radio"] {
     display: none;
 }
 
-#signin:checked ~ .form-wrapper #login-form,
-#signup:checked ~ .form-wrapper #register-form {
+#signin:checked~.form-wrapper #login-form,
+#signup:checked~.form-wrapper #register-form {
     display: block;
 }
 

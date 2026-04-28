@@ -255,6 +255,7 @@ nav a.active {
     font-family: "Playwrite AT", cursive;
     color: white;
     text-align: center;
+    font-size: 60px;
     margin-bottom: -50px;
     padding-top: 30px;
 }
@@ -516,6 +517,7 @@ footer {
 
 .cart-title {
     text-align: center;
+    font-family: 'Playwrite AT', sans-serif;
     color: white;
     font-size: 32px;
     margin-bottom: 30px;
@@ -710,4 +712,61 @@ footer {
 
 .hidden {
     display: none;
+}
+
+/* Search bar */
+#searchInput {
+    display: block;
+    margin: 20px auto -30px auto;
+    /* top | right | bottom | left */
+    width: 65%;
+    max-width: 550px;
+    padding: 14px 20px;
+
+    border: 2px solid #ddd;
+    border-radius: 30px;
+
+    position: relative;
+    z-index: 10;
+}
+
+/* Reduce space above menu */
+.container {
+    margin-top: 10px;
+}
+
+/* Placeholder styling */
+#searchInput::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Hover effect */
+#searchInput:hover {
+    border-color: #b08b6c;
+}
+
+/* Focus effect */
+#searchInput:focus {
+    border-color: #6f4e37;
+    /* coffee color */
+    box-shadow: 0 6px 18px rgba(111, 78, 55, 0.3);
+    transform: scale(1.02);
+}
+
+/* Optional: subtle animation on load */
+#searchInput {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

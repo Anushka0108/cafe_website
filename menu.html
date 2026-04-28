@@ -7,6 +7,8 @@
     <title>CoffeeHouse</title>
     <link rel="stylesheet" href="website_style.css">
     <script src="script\menu.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -27,9 +29,9 @@
         </div>
     </nav>
     <!-- SEARCH BAR BELOW NAVIGATION -->
-    <div class="search-container" style="text-align:center; margin: 15px 0;">
-        <input type="text" id="searchInput" placeholder="Search item..." onkeyup="searchItem()"
-            style="padding: 8px 12px; width: 250px; font-size:16px; border-radius:5px; border:1px solid #ccc;">
+    <p class="menu-title-main">Menu</p><br><br>
+    <div class="search" style="text-align:center; margin: 15px 0;">
+        <input type="text" id="searchInput" placeholder="Search item..." onkeyup="searchItem()">
     </div>
     <div class="container">
 
@@ -231,38 +233,9 @@
         </section>
 
     </div>
-    <script>
-
-        function searchItem() {
-            let input = document.getElementById("searchInput").value.toLowerCase().trim();
-            let items = document.querySelectorAll(".item");
-            let categories = document.querySelectorAll(".menu-category");
-
-            // Show all if search empty
-            if (input === "") {
-                items.forEach(item => item.style.display = "block");
-                categories.forEach(cat => cat.style.display = "block");
-                return;
-            }
-
-            // Filter items
-            items.forEach(item => {
-                let name = item.querySelector("h4").innerText.toLowerCase();
-                if (name.includes(input)) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
-            });
-
-            // Hide empty categories
-            categories.forEach(cat => {
-                let visibleItems = cat.querySelectorAll(".item:not([style*='display: none'])");
-                cat.style.display = visibleItems.length ? "block" : "none";
-            });
-        }
-    </script>
-
+    <footer>
+        <p>&copy; 2024 CoffeeHouse. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>
