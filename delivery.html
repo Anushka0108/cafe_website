@@ -22,7 +22,7 @@
 
     <h1>Delivery Options</h1>
 
-    <form id="deliveryForm" action="payment.html" method="GET">
+    <form id="deliveryForm" action="save_delivery.php" method="POST">
 
       <div class="card">
         <h3>Select Delivery Method</h3>
@@ -85,15 +85,22 @@
       $(".schedule").slideUp(300);
     });
     $("#deliveryForm").submit(function (e) {
-      e.preventDefault();
+
       let delivery = $("input[name='delivery']:checked").val();
       let time = $("input[name='time']:checked").val();
       let date = $("input[name='date']").val();
       let deliveryTime = $("input[name='delivery_time']").val();
+
       let error = "";
+
       if (!delivery) {
         error += "Please select a delivery method\n";
       }
+
+      if (!time) {
+        error += "Please select delivery time\n";
+      }
+
       if (time === "schedule") {
         if (!date) {
           error += "Please select a delivery date\n";
@@ -101,21 +108,17 @@
         if (!deliveryTime) {
           error += "Please select a delivery time\n";
         }
+
         let today = new Date().toISOString().split("T")[0];
         if (date && date < today) {
           error += "Date cannot be in the past\n";
         }
       }
+
       if (error !== "") {
         alert(error);
-        return;
+        e.preventDefault();
       }
-      alert("Form submitted successfully!");
-      localStorage.setItem("delivery", delivery);
-      localStorage.setItem("time", time);
-      localStorage.setItem("date", date);
-      localStorage.setItem("deliveryTime", deliveryTime);
-      window.location.href = "payment.html";
     });
   });
 </script>

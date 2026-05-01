@@ -289,7 +289,7 @@ nav a.active {
 }
 
 
-/* menu.html, delivery.html, payment.html*/
+/* menu.php, delivery.html, payment.html*/
 .container {
   max-width: 480px;
   margin: 30px auto;
@@ -307,7 +307,7 @@ nav a.active {
 }
 
 
-/* menu.html*/
+/* menu.php*/
 .cafe-list {
   display: flex;
   flex-direction: column;

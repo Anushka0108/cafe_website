@@ -770,3 +770,64 @@ footer {
         transform: translateY(0);
     }
 }
+
+/*CART ITEM OPTIONS*/
+
+.item-options {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Each option tag */
+.item-options div {
+    background: rgba(111, 78, 55, 0.08);
+    /* coffee tint */
+    color: var(--brown);
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Label (Size:, Milk:, etc.) */
+.item-options strong {
+    color: var(--coffee);
+    margin-right: 3px;
+}
+
+/* Optional hover effect */
+.item-options div:hover {
+    background: rgba(111, 78, 55, 0.15);
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+/*OPTION GROUP*/
+
+.options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f9f4ef;
+    padding: 10px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.option:hover {
+    background: #f1e6dc;
+}
+
+.option input {
+    transform: scale(1.2);
+}

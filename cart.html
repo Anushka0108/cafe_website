@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart | CoffeeHouse</title>
+
     <link rel="stylesheet" href="website_style.css">
+
+    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
@@ -16,7 +20,7 @@
         <h1>CoffeeHouse</h1>
         <div class="links">
             <a href="main_page.html">Home</a>
-            <a href="menu.html">Menu</a>
+            <a href="menu.php">Menu</a>
             <a href="map.html">Store Locator</a>
             <a href="Sign_Up.html">Sign In</a>
             <a href="cart.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -32,8 +36,10 @@
     <div class="cart-container">
         <h1 class="cart-title">Your Cart</h1>
 
+        <!-- ITEMS WILL LOAD HERE -->
         <div id="cart-items"></div>
 
+        <!-- SUMMARY -->
         <div class="cart-summary">
             <div class="summary-row total">
                 <span>Total</span>
@@ -41,16 +47,19 @@
             </div>
         </div>
 
+        <!-- ACTIONS -->
         <div class="cart-actions">
             <a href="delivery.html" class="checkout-btn">Proceed to Checkout</a>
-            <a href="menu.html" class="continue-btn">Continue Shopping</a>
+            <a href="menu.php" class="continue-btn">Continue Shopping</a>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2024 CoffeeHouse. All rights reserved.</p>
     </footer>
-    <script src="script\cart.js"></script>
+
+    <!-- ✅ FIXED SCRIPT PATH -->
+    <script src="script/cart.js"></script>
 
 </body>
 

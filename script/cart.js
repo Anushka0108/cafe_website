@@ -1,29 +1,38 @@
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        const container = document.getElementById("cart-items");
+const container = document.getElementById("cart-items");
 
-        function renderCart() {
-            container.innerHTML = "";
+function renderCart() {
+    container.innerHTML = "";
 
-            if (cart.length === 0) {
-                container.innerHTML = "<h2>Your cart is empty</h2>";
-                updateSummary(0);
+    if (cart.length === 0) {
+        container.innerHTML = "<h2>Your cart is empty</h2>";
+        updateSummary(0);
+        localStorage.removeItem("cart");
+        return;
+    }
 
-                localStorage.removeItem("cart");
+    let total = 0;
 
-                return;
-            }
+    cart.forEach((item, index) => {
+        let itemTotal = item.price * item.quantity;
+        total += itemTotal;
 
-            let total = 0;
+        // ✅ FIX: details OUTSIDE innerHTML
+        let details = "";
 
-            cart.forEach((item, index) => {
-                let itemTotal = item.price * item.quantity;
-                total += itemTotal;
+        if (item.size) details += `<div><strong>Size:</strong> ${item.size}</div>`;
+        if (item.milk) details += `<div><strong>Milk:</strong> ${item.milk}</div>`;
+        if (item.sugar) details += `<div><strong>Sugar:</strong> ${item.sugar}</div>`;
+        if (item.extras && item.extras.length)
+            details += `<div><strong>Extras:</strong> ${item.extras.join(", ")}</div>`;
+        if (item.toppings && item.toppings.length)
+            details += `<div><strong>Toppings:</strong> ${item.toppings.join(", ")}</div>`;
 
-                let div = document.createElement("div");
-                div.classList.add("cart-item");
+        let div = document.createElement("div");
+        div.classList.add("cart-item");
 
-                div.innerHTML = `
+        div.innerHTML = `
             <div class="item-image">
                 <img src="${item.image}" alt="${item.name}">
             </div>
@@ -31,7 +40,9 @@
             <div class="item-details">
                 <h4>${item.name}</h4>
                 <p class="item-price">₹${item.orgprice}</p>
-                <small>${item.size || ""} ${item.milk || ""} ${item.sugar || ""} ${item.toppings || ""}  ${item.extras || ""} </small>
+                <div class="item-options">
+                    ${details}
+                </div>
             </div>
 
             <div class="item-quantity">
@@ -47,47 +58,47 @@
             <button class="remove-btn" onclick="removeItem(${index})">x</button>
         `;
 
-                container.appendChild(div);
-            });
+        container.appendChild(div);
+    });
 
-            updateSummary(total);
-            localStorage.setItem("cart", JSON.stringify(cart));
-        }
+    updateSummary(total);
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
 
-        function increaseQty(index) {
-            cart[index].quantity++;
-            localStorage.setItem("cart", JSON.stringify(cart));
-            renderCart();
-        }
+function increaseQty(index) {
+    cart[index].quantity++;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
 
-        function decreaseQty(index) {
-            if (cart[index].quantity > 1) {
-                cart[index].quantity--;
-            } else {
-                cart.splice(index, 1);
-            }
+function decreaseQty(index) {
+    if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+    } else {
+        cart.splice(index, 1);
+    }
 
-            localStorage.setItem("cart", JSON.stringify(cart));
-            renderCart();
-        }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
 
-        function removeItem(index) {
-            cart.splice(index, 1);
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+}
 
-            localStorage.setItem("cart", JSON.stringify(cart));
+function updateSummary(total) {
+    let subtotal = total;
+    let delivery = 50;
 
-            renderCart();
-        }
+    if (subtotal > 500) {
+        delivery = 5;
+    }
 
-        function updateSummary(total) {
-            let subtotal = total;
-            let delivery=50;
-            if(subtotal>500){
-                delivery=5;
-            }
-            let finalTotal = subtotal + delivery;
+    let finalTotal = subtotal + delivery;
 
-            document.querySelector(".cart-summary").innerHTML = `
+    document.querySelector(".cart-summary").innerHTML = `
         <div class="summary-row">
             <span>Subtotal</span>
             <span>₹${subtotal}</span>
@@ -101,7 +112,6 @@
             <span>₹${finalTotal}</span>
         </div>
     `;
-        }
+}
 
-        renderCart();
-        
+renderCart();
