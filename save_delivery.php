@@ -2,6 +2,8 @@
 
 include("connect.php");
 
+session_start();
+
 $type = $_POST['delivery']; 
 $date = $_POST['date'] ?? NULL;
 $delivery_time = $_POST['delivery_time'] ?? NULL;
@@ -11,10 +13,9 @@ if ($_POST['time'] === "now") {
     $delivery_time = date("H:i:s");
 }
 
-$sql = "INSERT INTO delivery (type, date, delivery_time)
-VALUES ('$type', '$date', '$delivery_time')";
-
-$conn->query($sql);
+$stmt = $conn->prepare("INSERT INTO delivery (type, date, delivery_time) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $type, $date, $delivery_time);
+$stmt->execute();
 
 $deliveryid = $conn->insert_id;
 

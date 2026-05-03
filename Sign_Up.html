@@ -70,14 +70,21 @@
                     alert(data);
 
                     if (data === "SUCCESS") {
-                        document.getElementById("signin").checked = true;
-                        document.getElementById("register-form").reset();
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const from = urlParams.get('from');
+                        if (from === 'cart') {
+                            window.location.href = 'cart.html';
+                        } else if (from === 'payment') {
+                            window.location.href = 'delivery.html';
+                        } else {
+                            document.getElementById("signin").checked = true;
+                            document.getElementById("register-form").reset();
+                        }
                     }
                 });
         });
 
 
-        // ================= LOGIN =================
         document.getElementById("login-form").addEventListener("submit", function (e) {
             e.preventDefault();
 
@@ -91,8 +98,15 @@
                 .then(data => {
 
                     if (data === "success") {
-                        alert("Login successful!");
-                        window.location.href = "main_page.html";
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const from = urlParams.get('from');
+                        if (from === 'cart') {
+                            window.location.href = 'cart.html';
+                        } else if (from === 'payment') {
+                            window.location.href = 'delivery.html';
+                        } else {
+                            window.location.href = "main_page.php";
+                        }
                     }
                     else if (data === "missing") {
                         alert("Fill all fields!");

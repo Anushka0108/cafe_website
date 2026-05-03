@@ -256,6 +256,7 @@ h1 {
 
 
 /* main_page.html */
+
 nav {
   display: flex;
   align-items: center;
@@ -264,12 +265,12 @@ nav {
   padding: 20px;
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 nav h1 {
   font-size: 24px;
   color: var(--coffee);
-  margin-bottom: 0;
 }
 
 nav .links {
@@ -280,14 +281,18 @@ nav .links {
 nav a {
   text-decoration: none;
   color: var(--brown);
-  padding: 12px 18px;
+  padding: 10px 15px;
   border-radius: 20px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: rgb(215, 120, 120);
 }
 
 nav a.active {
   color: rgb(215, 120, 120);
 }
-
 
 /* menu.php, delivery.html, payment.html*/
 .container {

@@ -30,6 +30,15 @@ $stmt = $conn->prepare("INSERT INTO users (email, full_name, address, phone_numb
 $stmt->bind_param("sssss", $email, $full_name, $address, $phone, $hashedPassword);
 
 if ($stmt->execute()) {
+    // Auto-login after registration
+    session_start();
+    $stmt_user = $conn->prepare("SELECT * FROM users WHERE email=?");
+    $stmt_user->bind_param("s", $email);
+    $stmt_user->execute();
+    $result_user = $stmt_user->get_result();
+    $user = $result_user->fetch_assoc();
+    $_SESSION['user'] = $user;
+    session_regenerate_id(true);
     echo "SUCCESS";
 } else {
     echo "ERROR";

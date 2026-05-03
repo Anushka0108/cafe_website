@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "connect.php";
 
 $email = trim($_POST['email'] ?? '');
@@ -19,6 +20,8 @@ if ($result->num_rows > 0) {
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['password'])) {
+        $_SESSION['user'] = $user;
+        session_regenerate_id(true);
         echo "success";
     } else {
         echo "invalid";

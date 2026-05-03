@@ -135,3 +135,19 @@ function updateSummary(total) {
 }
 
 renderCart();
+
+function proceedCheckout() {
+  fetch('check_login.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.logged_in) {
+        window.location.href = 'delivery.html';
+      } else {
+        window.location.href = 'Sign_Up.html?from=cart';
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      window.location.href = 'Sign_Up.html?from=cart';
+    });
+}

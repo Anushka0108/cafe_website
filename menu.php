@@ -1,5 +1,9 @@
 <?php
+session_start();
 include("connect.php");
+
+$is_logged_in = isset($_SESSION['user']);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,10 +22,14 @@ include("connect.php");
 <nav>
         <h1>CoffeeHouse</h1>
         <div class="links">
-            <a href="main_page.html">Home</a>
+            <a href="main_page.php">Home</a>
             <a href="menu.php" class="active">Menu</a>
             <a href="map.html">Store Locator</a>
-            <a href="Sign_Up.html">Sign In</a>
+            <?php if ($is_logged_in): ?>
+                <a href="logout.php">Sign Out</a>
+            <?php else: ?>
+                <a href="Sign_Up.html">Sign In</a>
+            <?php endif; ?>
             <a href="cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     viewBox="0 0 24 24">
                     <path

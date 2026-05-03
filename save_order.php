@@ -1,6 +1,9 @@
 <?php
 include("connect.php");
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1); 
+
 header('Content-Type: application/json');
 
 // --------------------
@@ -17,6 +20,13 @@ $items = $data['items'] ?? [];
 $total = (float) $data['total'];
 $payment = $data['payment'] ?? '';
 $deliveryid = $data['deliveryid'] ?? null;
+
+session_start();
+if (!isset($_SESSION['user']['email'])) {
+    echo json_encode(["error" => "Login required"]);
+    exit();
+}
+$email = $_SESSION['user']['email'];
 
 if (!$payment || !$deliveryid) {
     echo json_encode(["error" => "Missing payment or deliveryid"]);
@@ -37,7 +47,6 @@ $row = $res->fetch_assoc();
 if ($row) {
     $pid = $row['pid'];
 } else {
-    // Insert new payment type if not exists
     $stmt = $conn->prepare("INSERT INTO payment (paymenttype) VALUES (?)");
     $stmt->bind_param("s", $data['payment']);
     $stmt->execute();
@@ -47,9 +56,13 @@ if ($row) {
 // --------------------
 // INSERT ORDER
 // --------------------
-$stmt = $conn->prepare("INSERT INTO orders (pid, deliveryid, total) VALUES (?, ?, ?)");
-$stmt->bind_param("iid", $pid, $deliveryid, $total);
-$stmt->execute();
+$stmt = $conn->prepare("INSERT INTO orders (email, paymentid, deliveryid, total) VALUES (?, ?, ?, ?)"); 
+$stmt->bind_param("siid", $email, $pid, $deliveryid, $total);
+
+if (!$stmt->execute()) { // ✅ ADDED ERROR CHECK
+    echo json_encode(["error" => $stmt->error]);
+    exit();
+}
 
 $orderid = $stmt->insert_id;
 
@@ -62,7 +75,7 @@ foreach ($items as $item) {
     if (empty($itemName)) continue;
 
     // Get menu_id (mid) from menuitems table by item name
-    $stmt2 = $conn->prepare("SELECT mid FROM menuitems WHERE itemname = ?");
+    $stmt2 = $conn->prepare("SELECT mid FROM menuitems WHERE LOWER(itemname) = LOWER(?)"); 
     $stmt2->bind_param("s", $itemName);
     $stmt2->execute();
     $res2 = $stmt2->get_result();

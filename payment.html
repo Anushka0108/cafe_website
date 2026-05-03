@@ -183,6 +183,7 @@
         fetch("save_order.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({
             items: cart,
             total: finalTotal,
@@ -192,6 +193,11 @@
         })
           .then(res => res.json())
           .then(data => {
+            if (data.error === "Login required") {
+              alert("Please login to complete your order!");
+              window.location.href = "Sign_Up.html?from=payment";
+              return;
+            }
             if (data.error) {
               alert("Error: " + data.error);
               return;
