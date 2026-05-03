@@ -1,4 +1,4 @@
-function selectItem(name, price, image,type){
+function selectItem(name, price, image, type){
     const item={
         name:name,
         price:price,

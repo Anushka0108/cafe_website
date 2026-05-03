@@ -59,6 +59,24 @@
       border-radius: 8px;
     }
 
+    .item-details {
+      background: var(--cream);
+      padding: 10px;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+
+    .item-name {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .item-customizations {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
     textarea,
     select {
       width: 100%;
@@ -101,6 +119,8 @@
     <!-- LEFT: BILL -->
     <div class="left">
       <h3>Order Details</h3>
+
+      <div id="orderId"></div>
 
       <div id="bill"></div>
 
@@ -148,13 +168,31 @@
         $("#total").text("0");
         $("#payment").text("-");
       } else {
+        // Show Order ID if available
+        if (order.orderid) {
+          $("#orderId").html('<p><strong>Order ID: #' + order.orderid + '</strong></p>');
+        }
+
         let html = "";
         $.each(order.items, function (i, item) {
           let itemTotal = item.price * item.quantity;
+
+          let customizations = [];
+          if (item.size) customizations.push("Size: " + item.size);
+          if (item.milk) customizations.push("Milk: " + item.milk);
+          if (item.sugar) customizations.push("Sugar: " + item.sugar);
+          if (item.extras && item.extras.length > 0) customizations.push("Extras: " + item.extras.join(", "));
+          if (item.toppings && item.toppings.length > 0) customizations.push("Toppings: " + item.toppings.join(", "));
+
+          let customHtml = customizations.length > 0
+            ? '<div class="item-customizations">' + customizations.join(" | ") + '</div>'
+            : '';
+
           html += `
-          <div class="row">
-            <span>${item.name} (x${item.quantity})</span>
-            <span>₹${itemTotal}</span>
+          <div class="item-details">
+            <div class="item-name">${item.name} (x${item.quantity})</div>
+            ${customHtml}
+            <div style="text-align:right; margin-top:4px;">₹${itemTotal}</div>
           </div>
           `;
         });

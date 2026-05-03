@@ -12,14 +12,14 @@ if ($_POST['time'] === "now") {
 }
 
 $sql = "INSERT INTO delivery (type, date, delivery_time)
-        VALUES ('$type', '$date', '$delivery_time')";
+VALUES ('$type', '$date', '$delivery_time')";
 
-if ($conn->query($sql) === TRUE) {
-    header("Location: payment.html");
-    exit();
-} else {
-    echo "Error: " . $conn->error;
-}
+$conn->query($sql);
+
+$deliveryid = $conn->insert_id;
+
+header("Location: payment.html?deliveryid=$deliveryid");
+exit();
 
 $conn->close();
 ?>

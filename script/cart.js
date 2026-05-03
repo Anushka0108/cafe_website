@@ -6,7 +6,13 @@ function renderCart() {
     container.innerHTML = "";
 
     if (cart.length === 0) {
-        container.innerHTML = "<h2>Your cart is empty</h2>";
+        container.innerHTML = `
+            <div class="cart-empty-state">
+                <div class="empty-icon">☕</div>
+                <h2 class="empty-message">Your Cart is Empty</h2>
+                <p>Add delicious items from the menu to get started!</p>
+            </div>
+        `;
         updateSummary(0);
         localStorage.removeItem("cart");
         return;
@@ -89,16 +95,30 @@ function removeItem(index) {
 }
 
 function updateSummary(total) {
+    const summaryEl = document.querySelector(".cart-summary");
+    
+    if (total === 0) {
+        summaryEl.innerHTML = `
+            <div class="empty-summary">
+                <div class="summary-row total empty-total">
+                    <span>Total</span>
+                    <span>₹0</span>
+                </div>
+                <p>Add items from menu to proceed to checkout</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Normal case
     let subtotal = total;
     let delivery = 50;
-
     if (subtotal > 500) {
         delivery = 5;
     }
-
     let finalTotal = subtotal + delivery;
 
-    document.querySelector(".cart-summary").innerHTML = `
+    summaryEl.innerHTML = `
         <div class="summary-row">
             <span>Subtotal</span>
             <span>₹${subtotal}</span>

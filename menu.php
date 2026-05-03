@@ -24,21 +24,18 @@ include("connect.php");
             <a href="Sign_Up.html">Sign In</a>
             <a href="cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     viewBox="0 0 24 24">
-                    <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
                     <path
                         d="M21 6H7.05L5.94 2.68A1 1 0 0 0 4.99 2h-3v2h2.28l3.54 10.63A2 2 0 0 0 9.71 16h7.59a2 2 0 0 0 1.87-1.3l2.76-7.35c.11-.31.07-.65-.11-.92A1 1 0 0 0 21 6m-3.69 8H9.72l-2-6h11.84zM10 18a2 2 0 1 0 0 4 2 2 0 1 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 1 0 0-4">
                     </path>
                 </svg></a>
         </div>
     </nav>
-    <!-- SEARCH BAR BELOW NAVIGATION -->
     <p class="menu-title-main">Menu</p><br><br>
     <div class="search" style="text-align:center; margin: 15px 0;">
         <input type="text" id="searchInput" placeholder="Search item..." onkeyup="searchItem()">
     </div>
 <div class="container">
 
-        <!-- HOT COFFEE -->
         <section class="menu-category">
             <div class="category-img">
                 <img src="assets/coffeeimg.png" alt="Coffee">
@@ -56,21 +53,18 @@ include("connect.php");
                 <div class="item">
                     <h4><?php echo $row['itemname']; ?></h4>
                     <span>₹<?php echo $row['price']; ?></span>
-                    <a href="item.html">
-                        <button onclick="selectItem(
+                    <button onclick="selectItem(
                             '<?php echo $row['itemname']; ?>',
                             <?php echo $row['price']; ?>,
                             'assets/coffeeimg.png',
                             'coffee'
                         )">+</button>
-                    </a>
                 </div>
                 <?php } ?>
 
             </div>
         </section>
 
-        <!-- COLD BEVERAGES -->
         <section class="menu-category reverse">
             <div class="category-img">
                 <img src="assets/coldcoffee.png" alt="Cold Drinks">
@@ -88,21 +82,18 @@ include("connect.php");
                 <div class="item">
                     <h4><?php echo $row['itemname']; ?></h4>
                     <span>₹<?php echo $row['price']; ?></span>
-                    <a href="item.html">
-                        <button onclick="selectItem(
+                    <button onclick="selectItem(
                             '<?php echo $row['itemname']; ?>',
                             <?php echo $row['price']; ?>,
                             'assets/coldcoffee.png',
                             'coffee'
                         )">+</button>
-                    </a>
                 </div>
                 <?php } ?>
 
             </div>
         </section>
 
-        <!-- BAKERY -->
         <section class="menu-category">
             <div class="category-img">
                 <img src="assets/bakery.png" alt="Bakery">
@@ -120,21 +111,18 @@ include("connect.php");
                 <div class="item">
                     <h4><?php echo $row['itemname']; ?></h4>
                     <span>₹<?php echo $row['price']; ?></span>
-                    <a href="item.html">
-                        <button onclick="selectItem(
+                    <button onclick="selectItem(
                             '<?php echo $row['itemname']; ?>',
                             <?php echo $row['price']; ?>,
                             'assets/bakery.png',
                             'bakery'
                         )">+</button>
-                    </a>
                 </div>
                 <?php } ?>
 
             </div>
         </section>
 
-        <!-- SANDWICH -->
         <section class="menu-category reverse">
             <div class="category-img">
                 <img src="assets/sandwich1.png" alt="Sandwich">
@@ -152,21 +140,18 @@ include("connect.php");
                 <div class="item">
                     <h4><?php echo $row['itemname']; ?></h4>
                     <span>₹<?php echo $row['price']; ?></span>
-                    <a href="item.html">
-                        <button onclick="selectItem(
+                    <button onclick="selectItem(
                             '<?php echo $row['itemname']; ?>',
                             <?php echo $row['price']; ?>,
                             'assets/sandwich1.png',
                             'sandwich'
                         )">+</button>
-                    </a>
                 </div>
                 <?php } ?>
 
             </div>
         </section>
 
-        <!-- PIZZA -->
         <section class="menu-category">
             <div class="category-img">
                 <img src="assets/pizza1.png" alt="Pizza">
@@ -184,14 +169,12 @@ include("connect.php");
                 <div class="item">
                     <h4><?php echo $row['itemname']; ?></h4>
                     <span>₹<?php echo $row['price']; ?></span>
-                    <a href="item.html">
-                        <button onclick="selectItem(
+                    <button onclick="selectItem(
                             '<?php echo $row['itemname']; ?>',
                             <?php echo $row['price']; ?>,
                             'assets/pizza1.png',
                             'pizza'
                         )">+</button>
-                    </a>
                 </div>
                 <?php } ?>
 
