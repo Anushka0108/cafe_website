@@ -117,3 +117,44 @@ input[type="radio"] {
 .auth-btn:hover {
     background: var(--coffee);
 }
+
+/* Mobile Responsive for Sign Up */
+@media (max-width: 768px) {
+    .auth-container {
+        width: 95vw;
+        max-width: 400px;
+        margin: 10px;
+    }
+
+    .auth-header {
+        height: 180px;
+    }
+
+    .auth-tabs {
+        padding: 20px;
+    }
+
+    .tab-links {
+        gap: 20px;
+    }
+
+    .auth-form input {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .auth-btn {
+        padding: 14px;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-header {
+        height: 150px;
+    }
+
+    .overlay-text h1 {
+        font-size: 22px;
+    }
+}

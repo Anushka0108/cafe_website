@@ -6,7 +6,7 @@ function selectItem(name, price, image, type){
         type:type
     };
     localStorage.setItem("selectedItem",JSON.stringify(item));
-    window.location.href="item.html";
+    window.location.href="item.php";
 }
 
 function searchItem() {
