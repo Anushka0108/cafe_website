@@ -42,6 +42,9 @@ $is_logged_in = isset($_SESSION['user']);
     <div class="search" style="text-align:center; margin: 15px 0;">
         <input type="text" id="searchInput" placeholder="Search item..." onkeyup="searchItem()">
     </div>
+    <div id="noResults" style="display:none; text-align:center; margin:40px auto; padding:20px; font-size:24px; color:white; background:var(--cream); border-radius:20px; max-width:600px;">
+        No items found matching "<span id="searchTerm"></span>".
+    </div>
 <div class="container">
 
         <section class="menu-category">
