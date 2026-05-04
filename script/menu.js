@@ -76,5 +76,5 @@ function searchItem() {
 
         xhr.send();
 
-    }, 300); // debounce
+    }, 300);
 }
