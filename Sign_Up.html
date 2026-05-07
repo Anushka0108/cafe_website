@@ -10,98 +10,113 @@
 
 <body>
 
-<div class="auth-container">
+    <div class="auth-container">
 
-    <div class="auth-header">
-        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800">
-        <div class="overlay-text">
-            <h1>Cafe Coffee</h1>
+        <div class="auth-header">
+            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800">
+            <div class="overlay-text">
+                <h1>Cafe Coffee</h1>
+            </div>
+        </div>
+
+        <div class="auth-tabs">
+
+            <input type="radio" name="auth" id="signin" checked>
+            <input type="radio" name="auth" id="signup">
+
+            <div class="tab-links">
+                <label for="signin">Sign In</label>
+                <label for="signup">Sign Up</label>
+            </div>
+
+            <div class="form-wrapper">
+
+                <!-- LOGIN -->
+                <form class="auth-form" id="login-form">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button class="auth-btn">Welcome Back</button>
+                </form>
+
+                <!-- SIGNUP -->
+                <form class="auth-form" id="register-form">
+                    <input type="text" name="full_name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="address" placeholder="Address">
+                    <input type="text" name="phone" placeholder="Phone Number">
+                    <input type="password" name="password" placeholder="Create Password" required>
+                    <button class="auth-btn">Join Now</button>
+                </form>
+
+
+            </div>
         </div>
     </div>
 
-    <div class="auth-tabs">
 
-        <input type="radio" name="auth" id="signin" checked>
-        <input type="radio" name="auth" id="signup">
+    <script>
 
-        <div class="tab-links">
-            <label for="signin">Sign In</label>
-            <label for="signup">Sign Up</label>
-        </div>
+        document.getElementById("register-form").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-        <div class="form-wrapper">
+            let form = new FormData(this);
 
-<!-- LOGIN -->
-<form class="auth-form" id="login-form">
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button class="auth-btn">Welcome Back</button>
-</form>
+            fetch("register.php", {
+                method: "POST",
+                body: form
+            })
+                .then(res => res.text())
+                .then(data => {
+                    alert(data);
 
-<!-- SIGNUP -->
-<form class="auth-form" id="register-form">
-    <input type="text" name="full_name" placeholder="Full Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="text" name="address" placeholder="Address">
-    <input type="text" name="phone" placeholder="Phone Number">
-    <input type="password" name="password" placeholder="Create Password" required>
-    <button class="auth-btn">Join Now</button>
-</form> 
-            
-
-        </div>
-    </div>
-</div>
+                    if (data === "SUCCESS") {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const from = urlParams.get('from');
+                        if (from === 'cart') {
+                            window.location.href = 'cart.php';
+                        } else if (from === 'payment') {
+                            window.location.href = 'delivery.html';
+                        } else {
+                            document.getElementById("signin").checked = true;
+                            document.getElementById("register-form").reset();
+                        }
+                    }
+                });
+        });
 
 
-<script>
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
 
-document.getElementById("register-form").addEventListener("submit", function(e){
-    e.preventDefault();
+            let form = new FormData(this);
 
-    let form = new FormData(this);
+            fetch("login.php", {
+                method: "POST",
+                body: form
+            })
+                .then(res => res.text())
+                .then(data => {
 
-    fetch("register.php", {
-        method: "POST",
-        body: form
-    })
-    .then(res => res.text())
-    .then(data => {
-        alert(data);
-
-        if(data === "SUCCESS"){
-            document.getElementById("signin").checked = true;
-            document.getElementById("register-form").reset();
-        }
-    });
-});
-
-
-// ================= LOGIN =================
-document.getElementById("login-form").addEventListener("submit", function(e){
-    e.preventDefault();
-
-    let form = new FormData(this);
-
-    fetch("login.php", {
-        method: "POST",
-        body: form
-    })
-    .then(res => res.text())
-    .then(data => {
-
-        if(data === "success"){
-            alert("Login successful!");
-            window.location.href = "main_page.html";
-        }
-        else if(data === "missing"){
-            alert("Fill all fields!");
-        }
-        else{
-            alert("Invalid login!");
-        }
-    });
-});
-</script>
+                    if (data === "success") {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const from = urlParams.get('from');
+                        if (from === 'cart') {
+                            window.location.href = 'cart.php';
+                        } else if (from === 'payment') {
+                            window.location.href = 'delivery.html';
+                        } else {
+                            window.location.href = "main_page.php";
+                        }
+                    }
+                    else if (data === "missing") {
+                        alert("Fill all fields!");
+                    }
+                    else {
+                        alert("Invalid login!");
+                    }
+                });
+        });
+    </script>
 </body>
+
 </html>
