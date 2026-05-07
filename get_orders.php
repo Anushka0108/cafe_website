@@ -1,26 +1,23 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "cafe_db");
+include("connect.php");
 
-if ($conn->connect_error) {
-    die("Connection failed");
+if (isset($_GET['email'])) {
+    $email = $_GET['email'];
+
+    // Query to fetch orders based on the user's email
+    $stmt = $conn->prepare("SELECT * FROM orders WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $orders = [];
+    while ($order = $result->fetch_assoc()) {
+        $orders[] = $order;
+    }
+
+    // Return orders as a JSON response
+    echo json_encode($orders);
+} else {
+    echo json_encode([]); // Return an empty array if no email is provided
 }
-
-$email = $_GET['email'] ?? '';
-
-$stmt = $conn->prepare("SELECT orderid, total, payment FROM orders WHERE email=? ORDER BY orderid DESC");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-
-$result = $stmt->get_result();
-
-$orders = [];
-
-while ($row = $result->fetch_assoc()) {
-    $orders[] = $row;
-}
-
-echo json_encode($orders);
-
-$stmt->close();
-$conn->close();
 ?>
