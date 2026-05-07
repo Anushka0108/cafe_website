@@ -89,101 +89,142 @@
   </div>
 
   <script>
-  $(function () {
+     $(function () {
 
-    // ✅ GET DELIVERY ID FROM URL
-const urlParams = new URLSearchParams(window.location.search);
-const deliveryid = urlParams.get("deliveryid");
+      // DELIVERY ID CHECK
+      const urlParams = new URLSearchParams(window.location.search);
+      const deliveryid = urlParams.get("deliveryid");
 
-console.log("DELIVERY ID:", deliveryid);
+      if (!deliveryid || deliveryid === "null") {
+        alert("Delivery ID missing! Redirecting...");
+        window.location.href = "cart.php";
+        return;
+      }
 
-if (!deliveryid || deliveryid === "null") {
-  alert("Delivery ID missing! Redirecting...");
-  window.location.href = "cart.html"; // or previous page
-  return;
-}
+      // SHOW / HIDE PAYMENT DETAILS
+      const showDetails = (value) => {
+        $(".payment-details").slideUp(200);
+        if (value === "Card") $("#cardDetails").slideDown(200);
+        else if (value === "UPI") $("#upiDetails").slideDown(200);
+      };
 
-    const showDetails = (value) => {
-      $(".payment-details").slideUp(200);
-      if (value === "Card") $("#cardDetails").slideDown(200);
-      else if (value === "UPI") $("#upiDetails").slideDown(200);
-    };
+      $("input[name='payment']").change(function () {
+        showDetails($(this).val());
+      });
 
-    $("input[name='payment']").change(function () {
-      showDetails($(this).val());
-    });
-
-    $("#paymentForm").submit(function (e) {
-      e.preventDefault();
-
+      // LOAD CART + DISPLAY
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      if (!cart.length) return alert("Cart is empty!");
+      const summaryDiv = $("#summary");
 
-      const payment = $("input[name='payment']:checked").val().toLowerCase();
-      if (!payment) return alert("Select payment method!");
-
-      if (payment === "Card") {
-        const cardNumber = $("input[name='cardNumber']").val().trim();
-        const expiry = $("input[name='expiry']").val().trim();
-        const cvv = $("input[name='cvv']").val().trim();
-
-        if (!/^\d{16}$/.test(cardNumber)) return alert("Card must be 16 digits!");
-        if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) return alert("Invalid expiry! Use MM/YY");
-        if (!/^\d{3}$/.test(cvv)) return alert("CVV must be 3 digits!");
+      if (!cart.length) {
+        summaryDiv.html("<p>Your cart is empty</p>");
+        $("#total").text("₹0");
+        return;
       }
 
-      if (payment === "UPI") {
-        const app = $("select[name='upiApp']").val();
-        const upiId = $("input[name='upiId']").val().trim();
-        const upiPattern = /^[a-zA-Z0-9._-]{2,}@[a-zA-Z]{2,}$/;
+      let subtotal = 0;
 
-        if (!app) return alert("Select UPI App!");
-        if (!upiPattern.test(upiId)) return alert("Enter valid UPI ID!");
-      }
+      cart.forEach(item => {
+        let price = parseFloat(item.price);
+        let qty = parseInt(item.quantity);
 
-    const total = cart.reduce((sum, item) => {
+        if (isNaN(price)) price = 0;
+        if (isNaN(qty)) qty = 1;
 
-  let price = item.price;
-  let qty = item.quantity;
+        let itemTotal = price * qty;
+        subtotal += itemTotal;
 
-  // REMOVE ₹ symbol if present
-  if (typeof price === "string") {
-    price = price.replace(/[^0-9.]/g, "");
-  }
+        summaryDiv.append(`
+      <div class="row">
+        <span>${item.name} x ${qty}</span>
+        <span>₹${itemTotal}</span>
+      </div>
+    `);
+      });
 
-  price = parseFloat(price);
-  qty = parseInt(qty);
+      let delivery = 0;  // Set delivery fee to 0
 
-  if (isNaN(price)) price = 0;
-  if (isNaN(qty)) qty = 1;
+      let finalTotal = subtotal + delivery;
+      $("#total").text("₹" + finalTotal);
 
-  return sum + (price * qty);
+      // SUBMIT PAYMENT
+      $("#paymentForm").submit(function (e) {
+        e.preventDefault();
 
-}, 0) + (cart.length ? 50 : 0);
-document.getElementById("total").innerText = "₹" + total;
+        const payment = $("input[name='payment']:checked").val();
+        if (!payment) return alert("Select payment method!");
 
-      // ✅ SEND TO BACKEND WITH DELIVERY ID
-      fetch("save_order.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: cart,
-          total: total,
-          payment: payment,
-          deliveryid: deliveryid   // ✅ FIXED HERE
+        const method = payment.toLowerCase();
+
+        // CARD VALIDATION
+        if (method === "card") {
+          const cardNumber = $("input[name='cardNumber']").val().trim();
+          const expiry = $("input[name='expiry']").val().trim();
+          const cvv = $("input[name='cvv']").val().trim();
+
+          if (!/^\d{16}$/.test(cardNumber)) return alert("Card must be 16 digits!");
+          if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiry)) return alert("Invalid expiry!");
+          if (!/^\d{3}$/.test(cvv)) return alert("CVV must be 3 digits!");
+        }
+
+        // UPI VALIDATION
+        if (method === "upi") {
+          const app = $("select[name='upiApp']").val();
+          const upiId = $("input[name='upiId']").val().trim();
+
+          const upiPattern = /^[a-zA-Z0-9._-]{2,}@[a-zA-Z]{2,}$/;
+
+          if (!app) return alert("Select UPI App!");
+          if (!upiPattern.test(upiId)) return alert("Enter valid UPI ID!");
+        }
+
+        // SEND TO BACKEND
+        fetch("save_order.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            items: cart,
+            total: finalTotal,
+            payment: method,
+            deliveryid: deliveryid
+          })
         })
-      })
-      .then(res => res.json())
-      .then(data => {
-        alert("Order Saved! ID: " + data.orderid);
-        localStorage.removeItem("cart");
-        window.location.href = "order.html";
+          .then(res => res.json())
+          .then(data => {
+            if (data.error === "Login required") {
+              alert("Please login to complete your order!");
+              window.location.href = "Sign_Up.html?from=payment";
+              return;
+            }
+            if (data.error) {
+              alert("Error: " + data.error);
+              return;
+            }
+
+            // Save order data for order.html display
+            const orderData = {
+              orderid: data.orderid,
+              items: cart,
+              total: finalTotal,
+              payment: method,
+              deliveryid: deliveryid
+            };
+            localStorage.setItem("orderData", JSON.stringify(orderData));
+
+            alert("Order Saved! Order ID: " + data.orderid);
+            localStorage.removeItem("cart");
+            window.location.href = "order.html";
+          })
+          .catch(err => {
+            console.error(err);
+            alert("Failed to save order. Please try again.");
+          });
+
       });
 
     });
-
-  });
-</script>
+  </script>
 </body>
 
 </html>

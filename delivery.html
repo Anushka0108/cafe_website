@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Delivery Options | CupfulCanvas</title>
+  <title>Delivery Options | CoffeeHouse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Google Font -->
@@ -11,6 +11,9 @@
 
   <!-- External CSS -->
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
+    rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
 </head>
 
 <body>
@@ -19,62 +22,105 @@
 
     <h1>Delivery Options</h1>
 
-    <!-- DELIVERY METHOD -->
-    <div class="card">
-      <h3>Select Delivery Method</h3>
+    <form id="deliveryForm" action="save_delivery.php" method="POST">
 
-      <label class="option">
-        <input type="radio" name="delivery">
-        <div>
-          <strong>Pickup from Store</strong>
-          <span>Collect your order from the selected outlet</span>
-        </div>
-      </label>
+      <div class="card">
+        <h3>Select Delivery Method</h3>
 
-      <label class="option">
-        <input type="radio" name="delivery">
-        <div>
-          <strong>Home Delivery</strong>
-          <span>Delivered to your doorstep</span>
-        </div>
-      </label>
-    </div>
+        <label class="option">
+          <input type="radio" name="delivery" value="pickup" required>
+          <div>
+            <strong>Pickup from Store</strong>
+            <span>Collect your order from the selected outlet</span>
+          </div>
+        </label>
 
-    <!-- DELIVERY TIME -->
-    <div class="card">
-      <h3>Delivery Time</h3>
-
-      <label class="option">
-        <input type="radio" name="time">
-        <div>
-          <strong>Deliver Now</strong>
-          <span>Order will be delivered immediately</span>
-        </div>
-      </label>
-
-      <label class="option">
-        <input type="radio" name="time">
-        <div>
-          <strong>Schedule for Later</strong>
-          <span>Choose a preferred date and time</span>
-        </div>
-      </label>
-
-      <!-- DATE & TIME -->
-      <div class="schedule">
-        <label>Delivery Date</label>
-        <input type="date">
-
-        <label>Delivery Time</label>
-        <input type="time">
+        <label class="option">
+          <input type="radio" name="delivery" value="home">
+          <div>
+            <strong>Home Delivery</strong>
+            <span>Delivered to your doorstep</span>
+          </div>
+        </label>
       </div>
-    </div>
 
-    <!-- CONTINUE -->
-    <a href="payment.html" class="checkout-btn">Continue to Payment</a>
+      <div class="card">
+        <h3>Delivery Time</h3>
 
-  </div>
+        <label class="option">
+          <input type="radio" name="time" value="now" id="now" checked>
+          <div>
+            <strong>Deliver Now</strong>
+            <span>Order will be delivered immediately</span>
+          </div>
+        </label>
 
+        <label class="option">
+          <input type="radio" name="time" value="schedule" id="schedule">
+          <div>
+            <strong>Schedule for Later</strong>
+            <span>Choose a preferred date and time</span>
+          </div>
+        </label>
+
+        <div class="schedule" style="display: none;">
+          <label>Delivery Date</label>
+          <input type="date" name="date">
+
+          <label>Delivery Time</label>
+          <input type="time" name="delivery_time">
+        </div>
+      </div>
+
+      <button type="submit" class="checkout-btn">Continue to Payment</button>
+
+    </form>
 </body>
+<script>
+  $(document).ready(function () {
+    $("#schedule").change(function () {
+      $(".schedule").slideDown(300);
+    });
+    $("#now").change(function () {
+      $(".schedule").slideUp(300);
+    });
+    $("#deliveryForm").submit(function (e) {
+
+      let delivery = $("input[name='delivery']:checked").val();
+      let time = $("input[name='time']:checked").val();
+      let date = $("input[name='date']").val();
+      let deliveryTime = $("input[name='delivery_time']").val();
+
+      let error = "";
+
+      if (!delivery) {
+        error += "Please select a delivery method\n";
+      }
+
+      if (!time) {
+        error += "Please select delivery time\n";
+      }
+
+      if (time === "schedule") {
+        if (!date) {
+          error += "Please select a delivery date\n";
+        }
+        if (!deliveryTime) {
+          error += "Please select a delivery time\n";
+        }
+
+        let today = new Date().toISOString().split("T")[0];
+        if (date && date < today) {
+          error += "Date cannot be in the past\n";
+        }
+      }
+
+      if (error !== "") {
+        alert(error);
+        e.preventDefault();
+      }
+    });
+  });
+</script>
 
 </html>
