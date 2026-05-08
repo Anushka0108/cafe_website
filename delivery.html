@@ -5,35 +5,36 @@
   <meta charset="UTF-8">
   <title>Delivery Options | CoffeeHouse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- External CSS -->
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
-    rel="stylesheet">
   <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
 </head>
 
 <body>
 
   <div class="container">
-
     <h1>Delivery Options</h1>
 
     <form id="deliveryForm" action="save_delivery.php" method="POST">
-
       <div class="card">
         <h3>Select Delivery Method</h3>
 
         <label class="option">
-          <input type="radio" name="delivery" value="pickup" required>
+          <input type="radio" name="delivery" value="pickup" id="pickup" required>
           <div>
             <strong>Pickup from Store</strong>
             <span>Collect your order from the selected outlet</span>
           </div>
         </label>
+
+        <div id="pickupDropdown" style="display:none;">
+          <label>Select Store Location</label>
+          <select name="location" style="width:100%; padding:10px; border-radius:10px; margin-top:5px;">
+            <option value="">-- Choose Location --</option>
+            <option value="Baga Beach">Baga Beach</option>
+            <option value="Calangute">Calangute</option>
+          </select>
+        </div>
 
         <label class="option">
           <input type="radio" name="delivery" value="home">
@@ -65,62 +66,99 @@
 
         <div class="schedule" style="display: none;">
           <label>Delivery Date</label>
-          <input type="date" name="date">
+          <input type="date" name="date" required>
 
           <label>Delivery Time</label>
-          <input type="time" name="delivery_time">
+          <input type="time" name="delivery_time" required>
         </div>
       </div>
 
-      <button type="submit" class="checkout-btn">Continue to Payment</button>
-
+      <button type="submit" class="checkout-btn" disabled>Continue to Payment</button>
     </form>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+
+      // Show location dropdown for Pickup option
+      $("input[name='delivery']").change(function () {
+        if ($("#pickup").prop("checked")) {
+          $("#pickupDropdown").slideDown(300);
+        } else {
+          $("#pickupDropdown").slideUp(300);
+        }
+      });
+
+      // Show delivery time input for Schedule option
+      $("#schedule").change(function () {
+        $(".schedule").slideDown(300);
+      });
+
+      // Hide delivery time input for Deliver Now option
+      $("#now").change(function () {
+        $(".schedule").slideUp(300);
+      });
+
+      // Form submission and validation
+      $("#deliveryForm").submit(function (e) {
+        let delivery = $("input[name='delivery']:checked").val();
+        let time = $("input[name='time']:checked").val();
+        let date = $("input[name='date']").val();
+        let deliveryTime = $("input[name='delivery_time']").val();
+
+        let error = "";
+
+        if (!delivery) {
+          error += "Please select a delivery method\n";
+        }
+
+        if (!time) {
+          error += "Please select delivery time\n";
+        }
+
+        if (time === "schedule") {
+          if (!date) {
+            error += "Please select a delivery date\n";
+          }
+          if (!deliveryTime) {
+            error += "Please select a delivery time\n";
+          }
+
+          let today = new Date().toISOString().split("T")[0];
+          if (date && date < today) {
+            error += "Date cannot be in the past\n";
+          }
+        }
+
+        if (error !== "") {
+          alert(error);
+          e.preventDefault();
+        }
+      });
+
+      // Button enablement check based on form completion
+      function checkFormCompletion() {
+        let delivery = $("input[name='delivery']:checked").val();
+        let time = $("input[name='time']:checked").val();
+        let date = $("input[name='date']").val();
+        let deliveryTime = $("input[name='delivery_time']").val();
+
+        // Enable the button if all required fields are filled
+        if (delivery && time && (time === "now" || (date && deliveryTime))) {
+          $(".checkout-btn").prop("disabled", false); // Enable button
+        } else {
+          $(".checkout-btn").prop("disabled", true); // Disable button
+        }
+      }
+
+      // Trigger form check on any input change
+      $("input, select").change(checkFormCompletion);
+
+      // Initial check in case any values are pre-filled
+      checkFormCompletion();
+    });
+  </script>
+
 </body>
-<script>
-  $(document).ready(function () {
-    $("#schedule").change(function () {
-      $(".schedule").slideDown(300);
-    });
-    $("#now").change(function () {
-      $(".schedule").slideUp(300);
-    });
-    $("#deliveryForm").submit(function (e) {
-
-      let delivery = $("input[name='delivery']:checked").val();
-      let time = $("input[name='time']:checked").val();
-      let date = $("input[name='date']").val();
-      let deliveryTime = $("input[name='delivery_time']").val();
-
-      let error = "";
-
-      if (!delivery) {
-        error += "Please select a delivery method\n";
-      }
-
-      if (!time) {
-        error += "Please select delivery time\n";
-      }
-
-      if (time === "schedule") {
-        if (!date) {
-          error += "Please select a delivery date\n";
-        }
-        if (!deliveryTime) {
-          error += "Please select a delivery time\n";
-        }
-
-        let today = new Date().toISOString().split("T")[0];
-        if (date && date < today) {
-          error += "Date cannot be in the past\n";
-        }
-      }
-
-      if (error !== "") {
-        alert(error);
-        e.preventDefault();
-      }
-    });
-  });
-</script>
 
 </html>
