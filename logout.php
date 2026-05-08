@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Unset all session variables
 $_SESSION = [];
 
 // Destroy the session
@@ -17,6 +16,6 @@ if (ini_get("session.use_cookies")) {
 }
 
 // Redirect to homepage
-header('Location: main_page.html');
+header('Location: main_page.php');
 exit();
 ?>

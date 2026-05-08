@@ -25,6 +25,7 @@ $is_logged_in = isset($_SESSION['user']);
             <a href="main_page.php">Home</a>
             <a href="menu.php" class="active">Menu</a>
             <a href="map.php">Store Locator</a>
+            <a href="user.php">Profile</a>
             <?php if ($is_logged_in): ?>
                 <a href="logout.php">Sign Out</a>
             <?php else: ?>

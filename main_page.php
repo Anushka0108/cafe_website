@@ -25,11 +25,13 @@ $is_logged_in = isset($_SESSION['user']);
             <a href="main_page.php" class="active">Home</a>
             <a href="menu.php">Menu</a>
             <a href="map.php">Store Locator</a>
-            <?php if ($is_logged_in): ?>
-                <a href="logout.php">Sign Out</a>
-            <?php else: ?>
-                <a href="Sign_Up.html">Sign In</a>
-            <?php endif; ?>
+<a href="user.php">Profile</a>
+
+        <?php if (isset($_SESSION['user'])): ?>
+            <a href="logout.php">Sign Out</a>
+        <?php else: ?>
+            <a href="Sign_Up.html">Sign In</a>
+        <?php endif; ?>
             <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     viewBox="0 0 24 24">
                     <path

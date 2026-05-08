@@ -3,8 +3,9 @@ session_start();
 include("connect.php");
 
 $is_logged_in = isset($_SESSION['user']);
-
+$is_admin = isset($_SESSION['user']['email']) && $_SESSION['user']['email'] === 'admin@gmail.com';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,6 @@ $is_logged_in = isset($_SESSION['user']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customize Item</title>
     <link rel="stylesheet" href="website_style.css">
-
 </head>
 
 <body>
@@ -22,13 +22,17 @@ $is_logged_in = isset($_SESSION['user']);
     <nav>
         <h1>CoffeeHouse</h1>
         <div class="links">
-            <a href="main_page.php" >Home</a>
+            <a href="main_page.php">Home</a>
             <a href="menu.php">Menu</a>
             <a href="map.php">Store Locator</a>
+            <a href="user.php">Profile</a>
             <?php if ($is_logged_in): ?>
                 <a href="logout.php">Sign Out</a>
             <?php else: ?>
                 <a href="Sign_Up.html">Sign In</a>
+            <?php endif; ?>
+            <?php if($is_admin): ?>
+<a href="admin/admin.php">Admin Panel</a>
             <?php endif; ?>
             <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     viewBox="0 0 24 24">
@@ -41,7 +45,6 @@ $is_logged_in = isset($_SESSION['user']);
 
     <div class="card">
 
-        <!-- BACK BUTTON -->
         <a href="menu.php"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                 viewBox="0 0 24 24">
                 <path
@@ -61,7 +64,7 @@ $is_logged_in = isset($_SESSION['user']);
                 <p>Base Price: ₹220</p>
 
                 <form>
-                    <!-- SIZE -->
+
                     <div id="size-section">
                         <h3>Select Size</h3>
 
@@ -83,7 +86,6 @@ $is_logged_in = isset($_SESSION['user']);
                         </div>
                     </div>
 
-                    <!-- MILK -->
                     <div id="milk-section">
                         <h3>Choose Milk</h3>
 
@@ -105,7 +107,6 @@ $is_logged_in = isset($_SESSION['user']);
                         </div>
                     </div>
 
-                    <!-- SUGAR -->
                     <div id="sugar-section">
                         <h3>Sugar Level</h3>
 
@@ -127,7 +128,6 @@ $is_logged_in = isset($_SESSION['user']);
                         </div>
                     </div>
 
-                    <!-- EXTRAS -->
                     <div id="extras-section">
                         <h3>Add Extras</h3>
 
@@ -144,7 +144,6 @@ $is_logged_in = isset($_SESSION['user']);
                         </div>
                     </div>
 
-                    <!-- PIZZA -->
                     <div id="pizza-section">
                         <h3>Pizza Toppings</h3>
 
@@ -166,13 +165,11 @@ $is_logged_in = isset($_SESSION['user']);
                         </div>
                     </div>
 
-                    <!-- QUANTITY -->
                     <div id="quantity-section">
                         <h3>Quantity</h3>
-                        <input type="number" min="1" value="1">
+                        <input type="number" min="1" max="50" value="1" oninput="if(this.value>50)this.value=50;">
                     </div>
 
-                    <!-- INSTRUCTION -->
                     <div id="instruction-section">
                         <h3>Special Instructions</h3>
                         <textarea rows="3"></textarea>
@@ -185,16 +182,11 @@ $is_logged_in = isset($_SESSION['user']);
                     </button>
 
                 </form>
-
             </div>
-
         </div>
-
     </div>
 
-    <!-- ✅ FIXED SCRIPT PATH -->
     <script src="script\item.js"></script>
 
 </body>
-
 </html>

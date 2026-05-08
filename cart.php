@@ -4,6 +4,13 @@ include("connect.php");
 
 $is_logged_in = isset($_SESSION['user']);
 
+// Get cart items from session (or database if stored there)
+$cart_items = isset($_SESSION['cart_items']) ? $_SESSION['cart_items'] : [];
+
+$total_price = 0;
+foreach ($cart_items as $item) {
+    $total_price += $item['price'] * $item['quantity'];  // Calculate total based on price and quantity
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +24,7 @@ $is_logged_in = isset($_SESSION['user']);
     <link rel="stylesheet" href="website_style.css">
 
     <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap" rel="stylesheet">
 
 </head>
 
@@ -26,9 +32,10 @@ $is_logged_in = isset($_SESSION['user']);
     <nav>
         <h1>CoffeeHouse</h1>
         <div class="links">
-            <a href="main_page.php" >Home</a>
+            <a href="main_page.php">Home</a>
             <a href="menu.php">Menu</a>
             <a href="map.php">Store Locator</a>
+<a href="user.php" class="active">Profile</a>
             <?php if ($is_logged_in): ?>
                 <a href="logout.php">Sign Out</a>
             <?php else: ?>
@@ -46,13 +53,15 @@ $is_logged_in = isset($_SESSION['user']);
     <div class="cart-container">
         <h1 class="cart-title">Your Cart</h1>
 
-        <div id="cart-items" class="cart-empty-state"></div>
+        <div id="cart-items" class="cart-empty-state">
+            <!-- Cart items will be dynamically inserted here -->
+        </div>
 
         <!-- SUMMARY -->
         <div class="cart-summary">
             <div class="summary-row total">
                 <span>Total</span>
-                <span id="total-price">₹0</span>
+                <span id="total-price">₹<?php echo $total_price; ?></span>
             </div>
         </div>
 
@@ -64,7 +73,7 @@ $is_logged_in = isset($_SESSION['user']);
     </div>
 
     <footer>
-        <p>&copy; 2024 CoffeeHouse. All rights reserved.</p>
+        <p>&copy; 2026 CoffeeHouse. All rights reserved.</p>
     </footer>
 
     <script src="script/cart.js"></script>

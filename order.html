@@ -4,107 +4,109 @@
 <head>
   <meta charset="UTF-8">
   <title>Order Successful</title>
-  <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
 
   <style>
     :root {
-      --bg: #F6EFE9;
-      --card: #EFE0D4;
       --brown: #4B2E1E;
       --coffee: #6F4E37;
-      --latte: #CFAE8E;
       --cream: #F6EDE6;
       --light: #FBF6F1;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--latte);
+    * {
       margin: 0;
-      padding: 20px;
-      color: var(--brown);
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--coffee);
+      /* 🔥 MATCH MAIN SITE */
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
     }
 
     h1 {
-      text-align: center;
-      color: var(--coffee);
+      color: white;
+      margin-bottom: 8px;
     }
 
     p {
-      text-align: center;
+      margin-bottom: 20px;
+      color: #eee;
     }
 
+    /* CARD */
     .container {
+      width: 420px;
+      height: 420px;
+      /* ✅ SAME as width = square */
+
+      background: var(--cream);
+      padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+
       display: flex;
-      gap: 20px;
-      max-width: 900px;
-      margin: 30px auto;
+      flex-direction: column;
+      justify-content: space-between;
+
+      overflow-y: auto;
+      /* keeps scroll if content overflows */
     }
 
-    .left,
-    .right {
-      flex: 1;
-      background: var(--light);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(75, 46, 30, 0.15);
+    h3 {
+      text-align: center;
+      color: var(--coffee);
+      margin-bottom: 10px;
     }
 
     .row {
       display: flex;
       justify-content: space-between;
-      margin: 8px 0;
-      background: var(--cream);
-      padding: 10px;
-      border-radius: 8px;
-    }
-
-    .item-details {
-      background: var(--cream);
-      padding: 10px;
-      border-radius: 8px;
-      margin: 8px 0;
-    }
-
-    .item-name {
-      font-weight: bold;
-      font-size: 16px;
-    }
-
-    .item-customizations {
-      font-size: 12px;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    textarea,
-    select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 8px;
-      border: 1px solid var(--latte);
+      margin: 6px 0;
       background: white;
+      /* 🔥 cleaner like cart */
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .total {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+      color: var(--brown);
+      font-size: 18px;
+    }
+
+    .payment {
+      text-align: center;
+      font-size: 14px;
+      color: var(--coffee);
     }
 
     .btn {
-      margin-top: 15px;
-      padding: 12px;
+      padding: 14px;
       width: 100%;
       border: none;
-      background: var(--coffee);
+      background: var(--brown);
+      /* 🔥 SAME BUTTON STYLE */
       color: white;
       border-radius: 25px;
       cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
     }
 
-    .bottom-btn {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .bottom-btn button {
-      width: 220px;
+    .btn:hover {
+      background: var(--coffee);
+      transform: translateY(-2px);
     }
   </style>
 </head>
@@ -116,110 +118,62 @@
 
   <div class="container">
 
-    <!-- LEFT: BILL -->
-    <div class="left">
+    <div>
       <h3>Order Details</h3>
-
-      <div id="orderId"></div>
-
       <div id="bill"></div>
-
-      <h4>Total Paid: ₹<span id="total"></span></h4>
-      <p>Payment Method: <span id="payment"></span></p>
     </div>
-    <!-- 
 
-    <div class="right">
-      <h3>Give Your Feedback</h3>
+    <div>
+      <div class="total">
+        Total Paid: ₹<span id="total"></span>
+      </div>
+      <div class="payment">
+        Payment Method: <span id="payment"></span>
+      </div>
+    </div>
 
-      <form id="feedbackForm">
+    <button class="btn" onclick="goHome()">Back to Home</button>
 
-        <label>Rating:</label>
-        <select id="ratingSelect" required>
-          <option value="">-- Select Rating --</option>
-          <option value="1">⭐</option>
-          <option value="2">⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
-          <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
-
-        <textarea id="feedbackText" rows="4" placeholder="Write your feedback..."></textarea>
-
-        <button type="submit" id="feedbackBtn" class="btn">
-          Submit Feedback
-        </button>
-
-      </form>
-    </div> -->
-
-
-  </div>
-
-  <!-- BOTTOM BUTTON -->
-  <div class="bottom-btn">
-    <button id="homeBtn" class="btn">Back to Home</button>
   </div>
 
   <script>
-    $(document).ready(function () {
-      let order = JSON.parse(localStorage.getItem("orderData"));
-      if (!order || !order.items || order.items.length === 0) {
-        $("#bill").html("<p>No order found</p>");
-        $("#total").text("0");
-        $("#payment").text("-");
-      } else {
-        // Show Order ID if available
-        if (order.orderid) {
-          $("#orderId").html('<p><strong>Order ID: #' + order.orderid + '</strong></p>');
-        }
+    const order = JSON.parse(localStorage.getItem("orderData"));
 
-        let html = "";
-        $.each(order.items, function (i, item) {
-          let itemTotal = item.price * item.quantity;
+    const billDiv = document.getElementById("bill");
+    const totalSpan = document.getElementById("total");
+    const paymentSpan = document.getElementById("payment");
 
-          let customizations = [];
-          if (item.size) customizations.push("Size: " + item.size);
-          if (item.milk) customizations.push("Milk: " + item.milk);
-          if (item.sugar) customizations.push("Sugar: " + item.sugar);
-          if (item.extras && item.extras.length > 0) customizations.push("Extras: " + item.extras.join(", "));
-          if (item.toppings && item.toppings.length > 0) customizations.push("Toppings: " + item.toppings.join(", "));
+    if (!order || !order.items || order.items.length === 0) {
+      billDiv.innerHTML = "<p style='text-align:center;'>No order found ❌</p>";
+      totalSpan.textContent = "0";
+      paymentSpan.textContent = "-";
+    } else {
 
-          let customHtml = customizations.length > 0
-            ? '<div class="item-customizations">' + customizations.join(" | ") + '</div>'
-            : '';
+      let html = "";
 
-          html += `
-          <div class="item-details">
-            <div class="item-name">${item.name} (x${item.quantity})</div>
-            ${customHtml}
-            <div style="text-align:right; margin-top:4px;">₹${itemTotal}</div>
-          </div>
-          `;
-        });
-        $("#bill").html(html);
-        $("#total").text(order.total);
-        $("#payment").text(order.payment);
-        localStorage.removeItem("orderData");
-      }
-      $("#feedbackForm").submit(function (e) {
-        e.preventDefault();
-        let rating = $("#ratingSelect").val();
-        if (!rating) {
-          alert("Please select rating!");
-          return;
-        }
-        alert("Feedback submitted!\nRating: " + rating + " ⭐");
-        $("#feedbackBtn")
-          .text("Submitted")
-          .prop("disabled", true)
-          .css("background", "#4B2E1E");
+      order.items.forEach(item => {
+        let price = Number(item.price);
+        let qty = Number(item.quantity);
+        let itemTotal = price * qty;
+
+        html += `
+      <div class="row">
+        <span>${item.name} (x${qty})</span>
+        <span>₹${itemTotal}</span>
+      </div>
+    `;
       });
-      $("#homeBtn").click(function () {
-        alert("Thank you for ordering!");
-        window.location.href = "main_page.php";
-      });
-    });
+
+      billDiv.innerHTML = html;
+      totalSpan.textContent = order.total;
+      paymentSpan.textContent = order.payment;
+
+      localStorage.removeItem("orderData");
+    }
+
+    function goHome() {
+      window.location.href = "main_page.php";
+    }
   </script>
 
 </body>

@@ -1,0 +1,217 @@
+:root {
+  --brown: #4B2E1E;
+  --coffee: #6F4E37;
+  --latte: #CFAE8E;
+  --cream: #F6EDE6;
+  --light: #FBF6F1;
+  --bg: #F6EFE9;
+  --card: #EFE0D4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Segoe UI, sans-serif;
+  background: var(--coffee);
+  color: var(--brown);
+  padding: 20px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: 'Playwrite AT', serif;
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 25px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.nav button,
+.nav a button {
+  background: var(--brown);
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav button:hover,
+.nav a button:hover {
+  background: var(--coffee);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.section {
+  display: none;
+  background: var(--cream);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
+}
+
+.active {
+  display: block;
+}
+
+.section h2,
+.section h3 {
+  color: var(--coffee);
+  margin-bottom: 20px;
+  font-family: 'Playwrite AT', serif;
+}
+
+input {
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  margin: 8px 4px 8px 0;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--coffee);
+  box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.1);
+}
+
+h2.menu-title-main {
+  color: var(--coffee);
+}
+
+#menu table th,
+#menu table td {
+  text-align: left;
+}
+
+#menu .action-btn {
+  padding: 7px 10px;
+  font-size: 14px;
+}
+
+
+button[name="add_item"] {
+  background: var(--latte);
+  color: var(--brown);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+button[name="add_item"]:hover {
+  background: var(--coffee);
+  color: white;
+  transform: translateY(-2px);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+th {
+  background: var(--coffee);
+  color: white;
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+  background: var(--light);
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--latte), transparent);
+  margin: 30px 0;
+}
+
+.action-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  background: var(--coffee);
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.action-btn:hover {
+  background: var(--brown);
+}
+
+.action-btn.danger {
+  background: #b23b3b;
+}
+
+.action-btn.danger:hover {
+  background: #8f2d2d;
+}
+
+form select {
+  display: inline-block;
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  margin: 8px 4px 8px 0;
+  font-size: 16px;
+  background: white;
+  transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav button,
+  .nav a button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .section {
+    padding: 20px;
+  }
+}

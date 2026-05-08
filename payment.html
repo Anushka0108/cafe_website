@@ -97,7 +97,7 @@
 
       if (!deliveryid || deliveryid === "null") {
         alert("Delivery ID missing! Redirecting...");
-        window.location.href = "cart.html";
+        window.location.href = "cart.php";
         return;
       }
 
@@ -142,8 +142,7 @@
     `);
       });
 
-      let delivery = 50;
-      if (subtotal > 500) delivery = 5;
+      let delivery = 0;  // Set delivery fee to 0
 
       let finalTotal = subtotal + delivery;
       $("#total").text("₹" + finalTotal);

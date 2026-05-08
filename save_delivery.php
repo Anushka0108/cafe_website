@@ -1,21 +1,43 @@
 <?php
-
+session_start();
 include("connect.php");
 
-session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: Sign_Up.html");
+    exit();
+}
 
-$type = $_POST['delivery']; 
-$date = $_POST['date'] ?? NULL;
-$delivery_time = $_POST['delivery_time'] ?? NULL;
+$type = $_POST['delivery'];
+$time = $_POST['time'];
 
-if ($_POST['time'] === "now") {
+$date = $_POST['date'] ?? null;
+$delivery_time = $_POST['delivery_time'] ?? null;
+
+if ($time === "now") {
     $date = date("Y-m-d");
     $delivery_time = date("H:i:s");
 }
 
-$stmt = $conn->prepare("INSERT INTO delivery (type, date, delivery_time) VALUES (?, ?, ?)");
-$stmt->bind_param("sss", $type, $date, $delivery_time);
-$stmt->execute();
+$email = $_SESSION['user']['email'];
+
+$stmtUser = $conn->prepare("SELECT address FROM users WHERE email = ?");
+$stmtUser->bind_param("s", $email);
+$stmtUser->execute();
+$resUser = $stmtUser->get_result();
+$user = $resUser->fetch_assoc();
+
+$address = $user['address'] ?? null;
+
+if ($type === "pickup") {
+    $address = null;
+}
+
+$stmt = $conn->prepare("INSERT INTO delivery (type, date, delivery_time, address) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $type, $date, $delivery_time, $address);
+
+if (!$stmt->execute()) {
+    die($stmt->error);
+}
 
 $deliveryid = $conn->insert_id;
 

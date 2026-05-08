@@ -110,22 +110,13 @@ function updateSummary(total) {
         return;
     }
     
-    // Normal case
-    let subtotal = total;
-    let delivery = 50;
-    if (subtotal > 500) {
-        delivery = 5;
-    }
-    let finalTotal = subtotal + delivery;
+    // Normal case: Removed delivery fee
+    let finalTotal = total;
 
     summaryEl.innerHTML = `
         <div class="summary-row">
             <span>Subtotal</span>
-            <span>₹${subtotal}</span>
-        </div>
-        <div class="summary-row">
-            <span>Delivery Fee</span>
-            <span>₹${delivery}</span>
+            <span>₹${total}</span>
         </div>
         <div class="summary-row total">
             <span>Total</span>

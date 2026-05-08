@@ -22,7 +22,13 @@ if ($result->num_rows > 0) {
     if (password_verify($password, $user['password'])) {
         $_SESSION['user'] = $user;
         session_regenerate_id(true);
-        echo "success";
+        $is_admin = ($_SESSION['user']['email'] === 'admin@gmail.com');
+        $redirect_url = $is_admin ? 'admin\admin.php' : 'main_page.php';
+        echo json_encode([
+            'status' => 'success',
+            'is_admin' => $is_admin,
+            'redirect_url' => $redirect_url
+        ]);
     } else {
         echo "invalid";
     }
