@@ -9,6 +9,8 @@ if(!isset($_SESSION['user']) || $_SESSION['user']['email'] != 'admin@gmail.com')
 
 $CATEGORIES = ['coffee','cold','bakery','sandwich','pizza'];
 
+$activeSection = $_POST['section'] ?? $_GET['section'] ?? 'report';
+
 if(isset($_POST['add_item'])){
     $name = $_POST['name'];
     $price = $_POST['price'];
@@ -43,7 +45,6 @@ if(isset($_GET['delete_item'])){
 $totalSalesQuery = mysqli_query($conn, "SELECT SUM(total) as total FROM orders");
 $totalSales = mysqli_fetch_assoc($totalSalesQuery)['total'];
 
-
 $orderCountQuery = mysqli_query($conn, "SELECT COUNT(*) as count FROM orders");
 $orderCount = mysqli_fetch_assoc($orderCountQuery)['count'];
 
@@ -62,13 +63,13 @@ $users = mysqli_query($conn, "SELECT * FROM users");
             let sections = document.querySelectorAll(".section");
             sections.forEach(sec => sec.classList.remove("active"));
             document.getElementById(id).classList.add("active");
+            document.getElementById("sectionInput").value = id;
         }
     </script>
 </head>
+
 <script>
-
 function showSection(id){
-
     let sections = document.querySelectorAll(".section");
 
     sections.forEach(sec => {
@@ -76,17 +77,20 @@ function showSection(id){
     });
 
     document.getElementById(id).classList.add("active");
+
+    document.getElementById("sectionInput").value = id;
 }
 
 function editItem(id){
-
     fetch("get_menu_item.php?id=" + id)
-
     .then(response => response.json())
-
     .then(data => {
-
         showSection('menu');
+
+window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+});
 
         document.getElementById("mid").value = data.mid;
         document.getElementById("name").value = data.itemname;
@@ -98,7 +102,6 @@ function editItem(id){
         let btn = document.getElementById("submitBtn");
 
         btn.innerText = "Save Changes";
-
         btn.name = "update_item";
 
         document.getElementById("cancelBtn").style.display = "inline-block";
@@ -106,7 +109,6 @@ function editItem(id){
 }
 
 function resetForm(){
-
     document.getElementById("menuForm").reset();
 
     document.getElementById("mid").value = "";
@@ -116,13 +118,12 @@ function resetForm(){
     let btn = document.getElementById("submitBtn");
 
     btn.innerText = "Add Item";
-
     btn.name = "add_item";
 
     document.getElementById("cancelBtn").style.display = "none";
 }
-
 </script>
+
 <body>
 
 <h1>Admin Dashboard</h1>
@@ -135,12 +136,14 @@ function resetForm(){
     <a href="logout.php"><button>Logout</button></a>
 </div>
 
-<div id="menu" class="section">
+<div id="menu" class="section <?php if($activeSection=='menu') echo 'active'; ?>">
     <h2>Menu Management</h2>
 
 <h3 id="form-title">Add Menu Item</h3>
 
 <form method="POST" id="menuForm">
+
+    <input type="hidden" name="section" id="sectionInput" value="menu">
 
     <input type="hidden" name="mid" id="mid">
 
@@ -163,55 +166,63 @@ function resetForm(){
            required
            step="0.01">
 
-    <button type="submit" name="add_item" id="submitBtn">
-        Add Item
-    </button>
+<button type="submit" name="add_item" id="submitBtn" class="action-btn">
+    Add Item
+</button>
 
-    <button type="button"
-            id="cancelBtn"
-            style="display:none;"
-            onclick="resetForm()">
-        Cancel
-    </button>
+<button type="button"
+        id="cancelBtn"
+        class="action-btn"
+        style="display:none;"
+        onclick="resetForm()">
+    Cancel
+</button>
 
 </form>
-    <hr>
 
-    <h3>Menu Items</h3>
+<hr>
 
-    <table>
+<h3>Menu Items</h3>
+
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+
+    <?php while($row = mysqli_fetch_assoc($menuItems)) { ?>
         <tr>
-            <th>Item</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Actions</th>
-        </tr>
-
-        <?php while($row = mysqli_fetch_assoc($menuItems)) { ?>
-            <tr>
-                <td><?php echo $row['itemname']; ?></td>
-                <td><?php echo $row['category']; ?></td>
-                <td>₹<?php echo $row['price']; ?></td>
-                <td>
+            <td><?php echo $row['itemname']; ?></td>
+            <td><?php echo $row['category']; ?></td>
+            <td>₹<?php echo $row['price']; ?></td>
+            <td>
 <button class="action-btn"
         onclick="editItem(<?php echo $row['mid']; ?>)">
     Edit
 </button>
-                    <a class="action-btn danger" href="?delete_item=<?php echo $row['mid']; ?>" onclick="return confirm('Delete this menu item?')">Delete</a>
-                </td>
-            </tr>
-        <?php } ?>
-    </table>
+
+<a class="action-btn danger"
+   href="?delete_item=<?php echo $row['mid']; ?>&section=menu"
+   onclick="return confirm('Delete this menu item?')">
+   Delete
+</a>
+
+            </td>
+        </tr>
+    <?php } ?>
+</table>
 
 </div>
 
-<div id="report" class="section active">
+<div id="report" class="section <?php if($activeSection=='report') echo 'active'; ?>">
     <h2>Sales Report</h2>
     <p>Total Orders: <?php echo $orderCount; ?></p>
     <p>Total Revenue: ₹<?php echo $totalSales ? $totalSales : 0; ?></p>
 </div>
 
-<div id="users" class="section">
+<div id="users" class="section <?php if($activeSection=='users') echo 'active'; ?>">
 
     <h2>Users</h2>
 
