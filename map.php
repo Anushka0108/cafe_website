@@ -16,7 +16,6 @@ $is_logged_in = isset($_SESSION['user']);
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
     rel="stylesheet">
 
-  <!-- External CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -44,16 +43,10 @@ $is_logged_in = isset($_SESSION['user']);
         </div>
     </nav>
 
-  <!-- HEADER -->
   <div class="header">Find a CoffeeHouse Café</div>
 
-  <!-- SEARCH BOX -->
-  <input type="text" id="searchInput" placeholder="Search location...">
-
-  <!-- STORE LIST -->
   <div class="store-list">
 
-    <!-- STORE 1 -->
     <div class="store" data-name="baga beach">
       <h3>Baga Beach</h3>
       <p>Goa</p>
@@ -110,7 +103,7 @@ $is_logged_in = isset($_SESSION['user']);
     });
   </script>
   <footer>
-    <p>&copy; 2024 CoffeeHouse. All rights reserved.</p>
+    <p>&copy; 2026 CoffeeHouse. All rights reserved.</p>
   </footer>
 </body>
 

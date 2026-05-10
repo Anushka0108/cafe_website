@@ -61,6 +61,14 @@ body {
   transition: 0.3s;
 }
 
+footer {
+  text-align: center;
+  background: var(--brown);
+  color: white;
+  padding: 30px;
+}
+
+
 /* Focus effect */
 #searchInput:focus {
   border-color: #6f4e37;
