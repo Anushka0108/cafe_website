@@ -22,6 +22,15 @@ body {
   min-height: 100vh;
 }
 
+
+.header {
+  text-align: center;
+  padding: 30px 20px;
+  font-family: 'Playwrite AT', serif;
+  font-size: 30px;
+  color: white;
+}
+
 h1 {
   font-family: 'Playwrite AT', serif;
   font-size: 32px;

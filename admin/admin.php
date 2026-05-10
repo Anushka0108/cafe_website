@@ -42,12 +42,60 @@ if(isset($_GET['delete_item'])){
     $stmt->close();
 }
 
-$totalSalesQuery = mysqli_query($conn, "SELECT SUM(total) as total FROM orders");
-$totalSales = mysqli_fetch_assoc($totalSalesQuery)['total'];
+$fromDate = $_GET['from'] ?? null;
+$toDate = $_GET['to'] ?? null;
 
-$orderCountQuery = mysqli_query($conn, "SELECT COUNT(*) as count FROM orders");
-$orderCount = mysqli_fetch_assoc($orderCountQuery)['count'];
+if ($fromDate && $toDate) {
 
+    $ordersQuery = $conn->prepare("
+        SELECT o.*, d.date, d.delivery_time
+        FROM orders o
+        JOIN delivery d ON o.deliveryid = d.deliveryid
+        WHERE d.date BETWEEN ? AND ?
+        ORDER BY d.date DESC
+    ");
+
+    $ordersQuery->bind_param("ss", $fromDate, $toDate);
+    $ordersQuery->execute();
+    $ordersResult = $ordersQuery->get_result();
+
+} else {
+
+    $ordersResult = mysqli_query($conn, "
+        SELECT o.*, d.date, d.delivery_time
+        FROM orders o
+        JOIN delivery d ON o.deliveryid = d.deliveryid
+        ORDER BY d.date DESC
+    ");
+}
+
+if ($fromDate && $toDate) {
+    $totalSalesQuery = $conn->prepare("
+        SELECT SUM(o.total) as total 
+        FROM orders o
+        JOIN delivery d ON o.deliveryid = d.deliveryid
+        WHERE d.date BETWEEN ? AND ?
+    ");
+    $totalSalesQuery->bind_param("ss", $fromDate, $toDate);
+    $totalSalesQuery->execute();
+    $totalSales = $totalSalesQuery->get_result()->fetch_assoc()['total'];
+
+    $orderCountQuery = $conn->prepare("
+        SELECT COUNT(*) as count 
+        FROM orders o
+        JOIN delivery d ON o.deliveryid = d.deliveryid
+        WHERE d.date BETWEEN ? AND ?
+    ");
+    $orderCountQuery->bind_param("ss", $fromDate, $toDate);
+    $orderCountQuery->execute();
+    $orderCount = $orderCountQuery->get_result()->fetch_assoc()['count'];
+} else {
+    $totalSalesQuery = mysqli_query($conn, "SELECT SUM(total) as total FROM orders");
+    $totalSales = mysqli_fetch_assoc($totalSalesQuery)['total'];
+
+    $orderCountQuery = mysqli_query($conn, "SELECT COUNT(*) as count FROM orders");
+    $orderCount = mysqli_fetch_assoc($orderCountQuery)['count'];
+}
 $menuItems = mysqli_query($conn, "SELECT * FROM menuitems");
 $users = mysqli_query($conn, "SELECT * FROM users");
 ?>
@@ -56,7 +104,11 @@ $users = mysqli_query($conn, "SELECT * FROM users");
 <html>
 <head>
     <title>Admin Dashboard</title>
+      <link href="https://fonts.googleapis.com/css2?family=Playwrite+AT:ital,wght@0,100..400;1,100..400&display=swap"
+    rel="stylesheet">
+
     <link rel="stylesheet" href="../website_style.css">
+    
     <link rel="stylesheet" href="admin.css">
     <script>
         function showSection(id){
@@ -126,7 +178,7 @@ function resetForm(){
 
 <body>
 
-<h1>Admin Dashboard</h1>
+<div class="header">Admin Dashboard</div>
 
 <div class="nav">
     <button onclick="showSection('menu')">Manage Menu</button>
@@ -218,6 +270,42 @@ function resetForm(){
 
 <div id="report" class="section <?php if($activeSection=='report') echo 'active'; ?>">
     <h2>Sales Report</h2>
+
+<form method="GET" style="margin-bottom:15px;">
+    <input type="hidden" name="section" value="report">
+
+    <label>From:</label>
+    <input type="date" name="from" value="<?php echo $fromDate; ?>" required>
+
+    <label>To:</label>
+    <input type="date" name="to" value="<?php echo $toDate; ?>" required>
+
+    <button type="submit" class="action-btn">Filter</button>
+</form>
+
+    <h3>Order Details</h3>
+
+<table>
+    <tr>
+        <th>Order ID</th>
+        <th>Total</th>
+        <th>Date</th>
+        <th>Delivery Time</th>
+        <th>Delivery ID</th>
+    </tr>
+
+    <?php while($row = mysqli_fetch_assoc($ordersResult)) { ?>
+    <tr>
+        <td><?php echo $row['orderid']; ?></td>
+        <td>₹<?php echo $row['total']; ?></td>
+        <td><?php echo $row['date']; ?></td>
+        <td><?php echo $row['delivery_time']; ?></td>
+        <td><?php echo $row['deliveryid']; ?></td>
+    </tr>
+    <?php } ?>
+</table>
+<br><br>
+
     <p>Total Orders: <?php echo $orderCount; ?></p>
     <p>Total Revenue: ₹<?php echo $totalSales ? $totalSales : 0; ?></p>
 </div>
