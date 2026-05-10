@@ -25,9 +25,9 @@ $is_logged_in = isset($_SESSION['user']);
             <a href="main_page.php" class="active">Home</a>
             <a href="menu.php">Menu</a>
             <a href="map.php">Store Locator</a>
-<a href="user.php">Profile</a>
 
         <?php if (isset($_SESSION['user'])): ?>
+            <a href="<?php echo ($_SESSION['user']['email'] === 'admin@gmail.com') ? 'admin/admin.php' : 'user.php'; ?>">Profile</a>
             <a href="logout.php">Sign Out</a>
         <?php else: ?>
             <a href="Sign_Up.html">Sign In</a>
