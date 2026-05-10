@@ -139,6 +139,6 @@ function addToCart(btn) {
     localStorage.setItem("cart", JSON.stringify(cart));
     
     setTimeout(() => {
-        window.location.href = "/cafe_website/menu.php";
+        window.location.href = "/cafe_website/cart.php";
     }, 300);
 }

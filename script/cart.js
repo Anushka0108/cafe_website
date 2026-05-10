@@ -24,7 +24,6 @@ function renderCart() {
         let itemTotal = item.price * item.quantity;
         total += itemTotal;
 
-        // ✅ FIX: details OUTSIDE innerHTML
         let details = "";
 
         if (item.size) details += `<div><strong>Size:</strong> ${item.size}</div>`;
@@ -40,7 +39,7 @@ function renderCart() {
 
         div.innerHTML = `
             <div class="item-image">
-                <img src="${item.image}" alt="${item.name}">
+                <img src="assets/bakery.png" alt="${item.name}">
             </div>
 
             <div class="item-details">
