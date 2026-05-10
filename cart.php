@@ -35,8 +35,8 @@ foreach ($cart_items as $item) {
             <a href="main_page.php">Home</a>
             <a href="menu.php">Menu</a>
             <a href="map.php">Store Locator</a>
-<a href="user.php" class="active">Profile</a>
             <?php if ($is_logged_in): ?>
+                <a href="<?php echo ($_SESSION['user']['email'] === 'admin@gmail.com') ? 'admin/admin.php' : 'user.php'; ?>">Profile</a>
                 <a href="logout.php">Sign Out</a>
             <?php else: ?>
                 <a href="Sign_Up.html">Sign In</a>
